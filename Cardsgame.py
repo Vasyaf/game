@@ -160,6 +160,7 @@ running = True
 exit = pygame.sprite.Sprite(all_sprites)
 exit.image = pygame.transform.scale(load_image('kres.jpg'), (50, 50))
 exit.rect = exit.image.get_rect().move(width - 50, 0)
+# картинка, нажав на которую программа закончится. Она если что во весь экран.
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
