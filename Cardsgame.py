@@ -71,6 +71,7 @@
 import pygame
 import sys
 import os
+import sqlite3
 
 
 pygame.init()
@@ -83,9 +84,42 @@ all_sprites = pygame.sprite.Group()
 
 
 class Board:
-    pass
-    # класс для помещения квадратов на поле. Именно с помощью них
-    # мы будем взаимодействовать с картами в игре.
+    def __init__(self):
+        for i in range(365, 806, 110):
+            for j in range(260, 361, 100):
+                pygame.draw.rect(screen, (0, 0, 255), (i, j, 110, 100), 5)
+        pygame.draw.rect(screen, (120, 0, 0), (565, 70, 150, 150), 5)
+        pygame.draw.rect(screen, (120, 0, 0), (565, 500, 150, 150), 5)
+        for i in range(20, 450, 100):
+            for j in range(30, 620, 500):        
+                pygame.draw.rect(screen, (205, 125, 125), (i, j, 75, 100), 5)
+            
+    def get_click(self, mouse_pos):
+        cell = self.get_cell(mouse_pos)
+   #     self.on_click(cell)
+        
+    def get_cell(self, m):
+        x = 0
+        qwe = 0
+        for i in range(365, 806, 110):
+            y = 0            
+            for j in range(260, 361, 100):
+                if m[0] >= i and m[0] <= i + 110:
+                    if m[1] >= j and m[1] <= j + 100:
+                        print(x, y)
+                        qwe += 1
+                y += 1
+            x += 1
+        if m[0] >= 565 and m[0] <= 715 and m[1] >= 70 and m[1] <= 220:
+            print('враг')
+            qwe += 1 
+        if m[0] >= 565 and m[0] <= 715 and m[1] >= 500 and m[1] <= 650:
+            print('ты')
+            qwe += 1
+        if qwe == 0:
+            print('None')
+        
+                        
 
     
 class Card:
@@ -104,9 +138,16 @@ class Allcards:
     # Это класс всех карт.
 
 
-class Enemy:
+class Enemy_first:
     pass
     # Это класс противника. Их будет трое. Здесь надо сделать их всех.
+    
+class Enemy_second:
+    pass
+
+
+class Enemy_third:
+    pass
 
 
 def zastavka():
@@ -163,25 +204,45 @@ def kollekchia():
 
 def menu_yrovneu():
     fontObj = pygame.font.Font('freesansbold.ttf', 40)
-    textSurfaceObj = fontObj.render('1', True, (255, 255, 255), (0, 0, 0))
+    if level_igrok == 1:
+        pygame.draw.circle(screen, (0, 0, 255), (401, 199), 35)
+        textSurfaceObj = fontObj.render('1', True, (255, 255, 255), (0, 0, 255))
+    else:
+        textSurfaceObj = fontObj.render('1', True, (255, 255, 255), (0, 0, 0))
     textRectObj = textSurfaceObj.get_rect()
-    textRectObj.center = (400, 200)
+    textRectObj.center = (400, 200)   
     screen.blit(textSurfaceObj, textRectObj)
     pygame.draw.circle(screen, (255, 255, 255), (400, 199), 35, 5)
     
     fontObj = pygame.font.Font('freesansbold.ttf', 40)
-    textSurfaceObj = fontObj.render('2', True, (255, 255, 255), (0, 0, 0))
+    if level_igrok == 2:
+        pygame.draw.circle(screen, (0, 0, 255), (551, 299), 35)
+        textSurfaceObj = fontObj.render('2', True, (255, 255, 255), (0, 0, 255))
+    else:
+        textSurfaceObj = fontObj.render('2', True, (255, 255, 255), (0, 0, 0))
     textRectObj = textSurfaceObj.get_rect()
     textRectObj.center = (550, 300)
     screen.blit(textSurfaceObj, textRectObj)
     pygame.draw.circle(screen, (255, 255, 255), (550, 299), 35, 5)
+    if level_igrok < 2:
+        pygame.draw.rect(screen, (128, 128, 128), (510, 260, 80, 80), 5)
+        pygame.draw.line(screen, (128, 128, 128), (510, 260), (590, 340), 5)
+        pygame.draw.line(screen, (128, 128, 128), (590, 260), (510, 340), 5)
     
     fontObj = pygame.font.Font('freesansbold.ttf', 40)
-    textSurfaceObj = fontObj.render('3', True, (255, 255, 255), (0, 0, 0))
+    if level_igrok == 3:
+        pygame.draw.circle(screen, (0, 0, 255), (701, 399), 35)
+        textSurfaceObj = fontObj.render('3', True, (255, 255, 255), (0, 0, 255))
+    else:
+        textSurfaceObj = fontObj.render('3', True, (255, 255, 255), (0, 0, 0))
     textRectObj = textSurfaceObj.get_rect()
     textRectObj.center = (700, 400)
     screen.blit(textSurfaceObj, textRectObj)
     pygame.draw.circle(screen, (255, 255, 255), (700, 399), 35, 5)
+    if level_igrok < 3:
+        pygame.draw.rect(screen, (128, 128, 128), (660, 360, 80, 80), 5)
+        pygame.draw.line(screen, (128, 128, 128), (660, 360), (740, 440), 5)
+        pygame.draw.line(screen, (128, 128, 128), (740, 360), (660, 440), 5)
 
 def yrovni():
     pass
@@ -218,6 +279,16 @@ exit.rect = exit.image.get_rect().move(width - 50, 0)
 # картинка, нажав на которую программа закончится. Игра, если что, во весь экран.
 ekran = 1
 back_prov = True
+level_play = 1
+con = sqlite3.connect("cards_tab.db")
+cur = con.cursor()
+result = cur.execute("SELECT * FROM cards_tab").fetchall()
+name = result[0][0]
+kolvo = result[0][2]
+cheaken = result[0][3]
+robot = result[0][4]
+titan = result[0][5]
+level_igrok = result[0][1]
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -303,8 +374,31 @@ while running:
                     ekran = 3
                     back.kill()
                     back_prov = True
-                    screen.fill((0, 0, 0))              
-        elif ekran == 5:
+                    screen.fill((0, 0, 0))
+                if event.pos[0] >= 367 and event.pos[0] <= 433:
+                    if event.pos[1] >= 166 and event.pos[1] <= 232:
+                        ekran = 6
+                        level_play = 1
+                        back.kill()
+                        back_prov = True                        
+                        screen.fill((0, 0, 0))
+                if level_igrok >= 2: 
+                    if event.pos[0] >= 517 and event.pos[0] <= 583:
+                        if event.pos[1] >= 266 and event.pos[1] <= 332:
+                            ekran = 6
+                            level_play = 2
+                            back.kill()
+                            back_prov = True                            
+                            screen.fill((0, 0, 0))
+                if level_igrok >= 3:
+                    if event.pos[0] >= 667 and event.pos[0] <= 733:
+                        if event.pos[1] >= 366 and event.pos[1] <= 432:
+                            ekran = 6
+                            level_play = 3
+                            back.kill()
+                            back_prov = True                            
+                            screen.fill((0, 0, 0))
+        elif ekran == 5:          
             kollekchia()
             if back_prov:
                 back = pygame.sprite.Sprite(all_sprites)
@@ -318,7 +412,56 @@ while running:
                     back_prov = True
                     screen.fill((0, 0, 0))            
         elif ekran == 6:
-            ekran = 6
+            if level_play == 1:
+                fontObj = pygame.font.Font('freesansbold.ttf', 50)
+                textSurfaceObj = fontObj.render('здесь будет 1-ый уровень', True, (255, 255, 255), (0, 0, 0))
+                textRectObj = textSurfaceObj.get_rect()
+                textRectObj.center = (640, 200)
+                screen.blit(textSurfaceObj, textRectObj)
+                name_e = 'Тролль'
+                kolvo_e = 7
+                cheaken_e = 6
+                robot_e = 1
+            elif level_play == 2:
+                fontObj = pygame.font.Font('freesansbold.ttf', 50)
+                textSurfaceObj = fontObj.render('здесь будет 2-ой уровень', True, (255, 255, 255), (0, 0, 0))
+                textRectObj = textSurfaceObj.get_rect()
+                textRectObj.center = (640, 200)
+                screen.blit(textSurfaceObj, textRectObj)
+            elif level_play == 3:
+                fontObj = pygame.font.Font('freesansbold.ttf', 50)
+                textSurfaceObj = fontObj.render('здесь будет 3-ий уровень', True, (255, 255, 255), (0, 0, 0))
+                textRectObj = textSurfaceObj.get_rect()
+                textRectObj.center = (640, 200)
+                screen.blit(textSurfaceObj, textRectObj)
+            fontObj = pygame.font.Font('freesansbold.ttf', 50)
+            textSurfaceObj = fontObj.render(str(kolvo), True, (255, 255, 255), (0, 0, 0))
+            textRectObj = textSurfaceObj.get_rect()
+            textRectObj.center = (1050, 500)
+            screen.blit(textSurfaceObj, textRectObj)
+            pygame.draw.rect(screen, (0, 120, 0), (1015, 390, 70, 220), 3)
+            
+            fontObj = pygame.font.Font('freesansbold.ttf', 50)
+            textSurfaceObj = fontObj.render(str(kolvo_e), True, (255, 255, 255), (0, 0, 0))
+            textRectObj = textSurfaceObj.get_rect()
+            textRectObj.center = (1050, 270)
+            screen.blit(textSurfaceObj, textRectObj)
+            pygame.draw.rect(screen, (0, 120, 0), (1015, 160, 70, 220), 3)
+            
+            board = Board()
+            fontObj = pygame.font.Font('freesansbold.ttf', 50)
+            textSurfaceObj = fontObj.render(name, True, (255, 255, 255), (0, 0, 0))
+            textRectObj = textSurfaceObj.get_rect()
+            textRectObj.center = (640, 540)
+            screen.blit(textSurfaceObj, textRectObj)
+            
+            fontObj = pygame.font.Font('freesansbold.ttf', 40)
+            textSurfaceObj = fontObj.render(name_e, True, (255, 255, 255), (0, 0, 0))
+            textRectObj = textSurfaceObj.get_rect()
+            textRectObj.center = (640, 100)
+            screen.blit(textSurfaceObj, textRectObj)            
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                board.get_click(event.pos)
         all_sprites.draw(screen)
     pygame.display.flip()
 terminate() 
