@@ -72,6 +72,7 @@ import pygame
 import sys
 import os
 import sqlite3
+import random
 
 
 pygame.init()
@@ -85,6 +86,12 @@ all_sprites = pygame.sprite.Group()
 
 class Board:
     def __init__(self):
+        self.pole = []
+        for i in range(4):
+            qwe = []
+            for j in range(5):
+                qwe.append(0)
+            self.pole.append(qwe)
         for i in range(365, 806, 110):
             for j in range(260, 361, 100):
                 pygame.draw.rect(screen, (0, 0, 255), (i, j, 110, 100), 5)
@@ -93,38 +100,96 @@ class Board:
         for i in range(20, 450, 100):
             for j in range(30, 620, 500):        
                 pygame.draw.rect(screen, (205, 125, 125), (i, j, 75, 100), 5)
+        pygame.draw.rect(screen, (255, 153, 0), (930, 300, 74, 120))
+        pygame.draw.circle(screen, (149, 80, 12), (967, 360), 20)
             
     def get_click(self, mouse_pos):
         cell = self.get_cell(mouse_pos)
-   #     self.on_click(cell)
+        self.on_click(cell)
         
     def get_cell(self, m):
         x = 0
-        qwe = 0
         for i in range(365, 806, 110):
             y = 0            
             for j in range(260, 361, 100):
                 if m[0] >= i and m[0] <= i + 110:
                     if m[1] >= j and m[1] <= j + 100:
-                        print(x, y)
-                        qwe += 1
+                        return x, y
                 y += 1
             x += 1
+        x = 0
+        y = 2
+        for i in range(20, 450, 100):
+            y = 2        
+            for j in range(30, 620, 500):
+                if m[0] >= i and m[0] <= i + 75:
+                    if m[1] >= j and m[1] <= j + 100:
+                        return x, y
+                y += 1
+            x += 1 
         if m[0] >= 565 and m[0] <= 715 and m[1] >= 70 and m[1] <= 220:
-            print('враг')
-            qwe += 1 
+            return 'Enemy'
         if m[0] >= 565 and m[0] <= 715 and m[1] >= 500 and m[1] <= 650:
-            print('ты')
-            qwe += 1
-        if qwe == 0:
-            print('None')
+            return 'You'
+        return None
+    
+    def prov(self, x, y):
+        if self.pole[x][y] == 0:
+            return True
+        else:
+            return False
+    
+    def izm(self, x, y, zn, kartinka=0):
+        do = self.pole[x][y]
+        self.pole[x][y] = zn
+        if y == 3:
+            cheaken = pygame.sprite.Sprite(all_sprites)
+            cheaken.image = pygame.transform.scale(load_image('cheaken.png'), (75, 100))
+            cheaken.rect = cheaken.image.get_rect().move(x * 100 + 20, 530)            
+            
+        
+            
+    def on_click(self, infa):
+        print(infa)
         
                         
 
     
 class Card:
-    pass
-    # Это класс любой карты.
+    def __init__(self, mana, yron, xp, kartinka=None):
+        self.mana = mana
+        self.yron = yron
+        self.xp = xp
+        self.kartinka = kartinka
+        
+    def ranen(self, yron):
+        self.xp -= yron
+        if xp <= 0:
+            pass
+
+
+class Cheaken(Card):
+    def __init__(self):
+        self.mana = 1
+        self.yron = 1
+        self.xp = 1
+        self.kartinka = 'cheaken.png'
+
+
+class Robot(Card):
+    def __init__(self):
+        self.mana = 3
+        self.yron = 3
+        self.xp = 3
+        self.kartinka = 'robot.png'
+
+
+class Titan(Card):
+    def __init__(self):
+        self.mana = 7
+        self.yron = 7
+        self.xp = 7
+      #  self.kartinka = 
 
 
 class Igrok:
@@ -136,18 +201,6 @@ class Igrok:
 class Allcards:
     pass
     # Это класс всех карт.
-
-
-class Enemy_first:
-    pass
-    # Это класс противника. Их будет трое. Здесь надо сделать их всех.
-    
-class Enemy_second:
-    pass
-
-
-class Enemy_third:
-    pass
 
 
 def zastavka():
@@ -200,7 +253,10 @@ def kollekchia():
     textSurfaceObj = fontObj.render('Здесь будет вся коллекция карт', True, (255, 255, 255), (0, 0, 0))
     textRectObj = textSurfaceObj.get_rect()
     textRectObj.center = (600, 250)
-    screen.blit(textSurfaceObj, textRectObj)   
+    screen.blit(textSurfaceObj, textRectObj)
+    pygame.draw.rect(screen, (0, 120, 0), (100, 50, 100, 150), 3)
+    pygame.draw.rect(screen, (0, 120, 0), (230, 50, 100, 150), 3)
+    pygame.draw.rect(screen, (0, 120, 0), (360, 50, 100, 150), 3)    
 
 def menu_yrovneu():
     fontObj = pygame.font.Font('freesansbold.ttf', 40)
@@ -252,7 +308,17 @@ def yrovni():
 def pravila():
     pass
     # Это вызов рисования экрана с правилами.
-
+    
+def vzat_carty(who):
+    if who == 'you':
+        for i in range(5):
+            if board.prov(i, 3):
+                qw = True
+                asd = random.choice(('cheaken, robot'))
+                board.izm(i, 3, 1, asd)
+                break
+    else:
+        pass
 def terminate():
     pygame.quit()
     sys.exit()
@@ -277,8 +343,9 @@ exit = pygame.sprite.Sprite(all_sprites)
 exit.image = pygame.transform.scale(load_image('kres.jpg'), (50, 50))
 exit.rect = exit.image.get_rect().move(width - 50, 0)
 # картинка, нажав на которую программа закончится. Игра, если что, во весь экран.
-ekran = 1
+ekran = 6
 back_prov = True
+kar_nachalo_prov = True
 level_play = 1
 con = sqlite3.connect("cards_tab.db")
 cur = con.cursor()
@@ -289,6 +356,8 @@ cheaken = result[0][3]
 robot = result[0][4]
 titan = result[0][5]
 level_igrok = result[0][1]
+turn = True
+prov_vzat_carty = True
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -297,15 +366,24 @@ while running:
             if event.pos[0] >= width - 50 and event.pos[1] <= 50:
                 terminate()      
         if ekran == 1:
+      #      if kar_nachalo_prov:
+       #         kar_nachalo = pygame.sprite.Sprite(all_sprites)
+        #        kar_nachalo.image = pygame.transform.scale(load_image('Igra2.png'), (1280, 720))
+         #       kar_nachalo.rect = kar_nachalo.image.get_rect().move(0, 0)
+          #      kar_nachalo_prov = False
             zastavka()
             if event.type == pygame.MOUSEBUTTONUP:
                 if event.pos[0] >= 465 and event.pos[0] <= 815:
                     if event.pos[1] >= 375 and event.pos[1] <= 426:
                         ekran = 2
+          #              kar_nachalo.kill()
+           #             kar_nachalo_prov = True                        
                         screen.fill((0, 0, 0))
                 if event.pos[0] >= 500 and event.pos[0] <= 780:
                     if event.pos[1] >= 175 and event.pos[1] <= 226:
                         ekran = 3
+            #            kar_nachalo.kill()
+             #           kar_nachalo_prov = True                        
                         screen.fill((0, 0, 0))
         elif ekran == 2:
             fontObj = pygame.font.Font('freesansbold.ttf', 50)
@@ -404,36 +482,24 @@ while running:
                 back = pygame.sprite.Sprite(all_sprites)
                 back.image = pygame.transform.scale(load_image('back.png'), (50, 50))
                 back.rect = back.image.get_rect().move(0, 0)
-                back_prov = False
+                back_prov = False             
             if event.type == pygame.MOUSEBUTTONUP:
                 if event.pos[0] <= 50 and event.pos[1] <= 50:
                     ekran = 3
                     back.kill()
                     back_prov = True
-                    screen.fill((0, 0, 0))            
+                    screen.fill((0, 0, 0))  
+                      
         elif ekran == 6:
             if level_play == 1:
-                fontObj = pygame.font.Font('freesansbold.ttf', 50)
-                textSurfaceObj = fontObj.render('здесь будет 1-ый уровень', True, (255, 255, 255), (0, 0, 0))
-                textRectObj = textSurfaceObj.get_rect()
-                textRectObj.center = (640, 200)
-                screen.blit(textSurfaceObj, textRectObj)
                 name_e = 'Тролль'
                 kolvo_e = 7
                 cheaken_e = 6
                 robot_e = 1
             elif level_play == 2:
-                fontObj = pygame.font.Font('freesansbold.ttf', 50)
-                textSurfaceObj = fontObj.render('здесь будет 2-ой уровень', True, (255, 255, 255), (0, 0, 0))
-                textRectObj = textSurfaceObj.get_rect()
-                textRectObj.center = (640, 200)
-                screen.blit(textSurfaceObj, textRectObj)
+                pass
             elif level_play == 3:
-                fontObj = pygame.font.Font('freesansbold.ttf', 50)
-                textSurfaceObj = fontObj.render('здесь будет 3-ий уровень', True, (255, 255, 255), (0, 0, 0))
-                textRectObj = textSurfaceObj.get_rect()
-                textRectObj.center = (640, 200)
-                screen.blit(textSurfaceObj, textRectObj)
+                pass
             fontObj = pygame.font.Font('freesansbold.ttf', 50)
             textSurfaceObj = fontObj.render(str(kolvo), True, (255, 255, 255), (0, 0, 0))
             textRectObj = textSurfaceObj.get_rect()
@@ -459,7 +525,14 @@ while running:
             textSurfaceObj = fontObj.render(name_e, True, (255, 255, 255), (0, 0, 0))
             textRectObj = textSurfaceObj.get_rect()
             textRectObj.center = (640, 100)
-            screen.blit(textSurfaceObj, textRectObj)            
+            screen.blit(textSurfaceObj, textRectObj)
+            if turn:
+                if prov_vzat_carty:
+                    vzat_carty('you')
+                    prov_vzat_carty = False
+            else:
+                print('Враг сходил')
+                turn = True
             if event.type == pygame.MOUSEBUTTONDOWN:
                 board.get_click(event.pos)
         all_sprites.draw(screen)
