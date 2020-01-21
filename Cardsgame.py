@@ -87,6 +87,9 @@ all_sprites = pygame.sprite.Group()
 class Board:
     def __init__(self):
         self.pole = []
+        self.prov_click = None
+        self.rect_yellow = None
+        self.prov_yellow = True
         for i in range(4):
             qwe = []
             for j in range(5):
@@ -94,12 +97,15 @@ class Board:
             self.pole.append(qwe)
         for i in range(365, 806, 110):
             for j in range(260, 361, 100):
-                pygame.draw.rect(screen, (0, 0, 255), (i, j, 110, 100), 5)
-        pygame.draw.rect(screen, (120, 0, 0), (565, 70, 150, 150), 5)
+                pygame.draw.rect(screen, (120, 120, 120), (i, j, 110, 100), 5)
+        pygame.draw.rect(screen, (120, 120, 120), (565, 70, 150, 150), 5)
         pygame.draw.rect(screen, (120, 0, 0), (565, 500, 150, 150), 5)
         for i in range(20, 450, 100):
-            for j in range(30, 620, 500):        
-                pygame.draw.rect(screen, (205, 125, 125), (i, j, 75, 100), 5)
+            for j in range(30, 620, 500):
+                if j > 200:
+                    pygame.draw.rect(screen, (120, 120, 120), (i, j, 75, 100), 5)
+                else:
+                    pygame.draw.rect(screen, (120, 0, 0), (i, j, 75, 100), 5)
         pygame.draw.rect(screen, (255, 153, 0), (930, 300, 74, 120))
         pygame.draw.circle(screen, (149, 80, 12), (967, 360), 20)
             
@@ -114,6 +120,13 @@ class Board:
             for j in range(260, 361, 100):
                 if m[0] >= i and m[0] <= i + 110:
                     if m[1] >= j and m[1] <= j + 100:
+                        if self.prov_yellow:
+                            pygame.draw.rect(screen, (255, 255, 0), (i, j, 110, 100), 5)
+                            self.rect_yellow = (i, j, 110, 100)
+                            self.prov_yellow = False
+                        else:
+                            pygame.draw.rect(screen, (120, 120, 120), self.rect_yellow, 5)
+                            self.prov_yellow = True
                         return x, y
                 y += 1
             x += 1
@@ -124,13 +137,32 @@ class Board:
             for j in range(30, 620, 500):
                 if m[0] >= i and m[0] <= i + 75:
                     if m[1] >= j and m[1] <= j + 100:
+                        if j > 200:
+                            if self.prov_yellow:
+                                pygame.draw.rect(screen, (255, 255, 0), (i, j, 75, 100), 5)
+                                self.rect_yellow = (i, j, 75, 100)
+                                self.prov_yellow = False
+                            else:
+                                pygame.draw.rect(screen, (120, 120, 120), self.rect_yellow, 5)
+                                self.prov_yellow = True                        
                         return x, y
                 y += 1
             x += 1 
         if m[0] >= 565 and m[0] <= 715 and m[1] >= 70 and m[1] <= 220:
+            if self.prov_yellow:
+                pygame.draw.rect(screen, (255, 255, 0), (565, 70, 150, 150), 5)
+                self.rect_yellow = (565, 70, 150, 150)
+                self.prov_yellow = False
+            else:
+                pygame.draw.rect(screen, (120, 120, 120), self.rect_yellow, 5)
+                self.prov_yellow = True            
             return 'Enemy'
-        if m[0] >= 565 and m[0] <= 715 and m[1] >= 500 and m[1] <= 650:
-            return 'You'
+     #   if m[0] >= 565 and m[0] <= 715 and m[1] >= 500 and m[1] <= 650:          
+     #       return 'You'
+        if m[0] >= 949 and m[0] <= 985 and m[1] >= 342 and m[1] <= 378:
+            global turn
+            turn = False
+            return None
         return None
     
     def prov(self, x, y):
@@ -142,16 +174,22 @@ class Board:
     def izm(self, x, y, zn, kartinka=0):
         do = self.pole[x][y]
         self.pole[x][y] = zn
-        if y == 3:
-            cheaken = pygame.sprite.Sprite(all_sprites)
-            cheaken.image = pygame.transform.scale(load_image('cheaken.png'), (75, 100))
-            cheaken.rect = cheaken.image.get_rect().move(x * 100 + 20, 530)            
-            
-        
+        print(self.pole)
+        if x == 3:
+            qwe = kartinka + '.png'
+            imag = pygame.sprite.Sprite(all_sprites)
+            imag.image = pygame.transform.scale(load_image(qwe), (75, 100))
+            imag.rect = imag.image.get_rect().move(y * 100 + 20, 530)
+        if x == 2:
+            imag = pygame.sprite.Sprite(all_sprites)
+            imag.image = pygame.transform.scale(load_image(kartinka), (75, 100))
+            imag.rect = imag.image.get_rect().move(y * 100 + 20, 30)            
             
     def on_click(self, infa):
-        print(infa)
-        
+        if self.prov_click is None:
+            self.prov_click = infa
+        else:
+            self.prov_click = None
                         
 
     
@@ -311,14 +349,34 @@ def pravila():
     
 def vzat_carty(who):
     if who == 'you':
+        global kolvo
+        if kolvo <= 0:
+            global xp_you
+            global net_kart
+            xp_you -= net_kart
+            net_kart += 1
+        else:
+            kolvo -= 1        
         for i in range(5):
-            if board.prov(i, 3):
+            if board.prov(3, i):
                 qw = True
-                asd = random.choice(('cheaken, robot'))
-                board.izm(i, 3, 1, asd)
+                asd = random.choice(('cheaken', 'robot'))
+                board.izm(3, i, 1, asd)
                 break
     else:
-        pass
+        global kolvo_e
+        if kolvo_e <= 0:
+            global xp_e
+            global net_kart_e
+            xp_e -= net_kart_e
+            net_kart_e += 1
+        else:
+            kolvo_e -= 1        
+        for i in range(5):
+            if board.prov(2, i):
+                qw = True
+                board.izm(2, i, 1, 'card.png')
+                break        
 def terminate():
     pygame.quit()
     sys.exit()
@@ -344,6 +402,7 @@ exit.image = pygame.transform.scale(load_image('kres.jpg'), (50, 50))
 exit.rect = exit.image.get_rect().move(width - 50, 0)
 # картинка, нажав на которую программа закончится. Игра, если что, во весь экран.
 ekran = 6
+board = Board()
 back_prov = True
 kar_nachalo_prov = True
 level_play = 1
@@ -358,6 +417,10 @@ titan = result[0][5]
 level_igrok = result[0][1]
 turn = True
 prov_vzat_carty = True
+start = True
+kolvo_mana = 0
+net_kart = 1
+net_kart_e = 1
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -491,14 +554,17 @@ while running:
                     screen.fill((0, 0, 0))  
                       
         elif ekran == 6:
-            if level_play == 1:
+            if level_play == 1 and start:
                 name_e = 'Тролль'
                 kolvo_e = 7
                 cheaken_e = 6
                 robot_e = 1
-            elif level_play == 2:
+                start = False
+                xp_you = 45
+                xp_e = 15
+            elif level_play == 2 and start:
                 pass
-            elif level_play == 3:
+            elif level_play == 3 and start:
                 pass
             fontObj = pygame.font.Font('freesansbold.ttf', 50)
             textSurfaceObj = fontObj.render(str(kolvo), True, (255, 255, 255), (0, 0, 0))
@@ -514,7 +580,20 @@ while running:
             screen.blit(textSurfaceObj, textRectObj)
             pygame.draw.rect(screen, (0, 120, 0), (1015, 160, 70, 220), 3)
             
-            board = Board()
+            pygame.draw.circle(screen, (200, 0, 0), (715, 650), 36)
+            fontObj = pygame.font.Font('freesansbold.ttf', 45)
+            textSurfaceObj = fontObj.render(str(xp_you), True, (255, 255, 255))
+            textRectObj = textSurfaceObj.get_rect()
+            textRectObj.center = (715, 653)
+            screen.blit(textSurfaceObj, textRectObj)
+            
+            pygame.draw.circle(screen, (200, 0, 0), (715, 220), 36)  
+            fontObj = pygame.font.Font('freesansbold.ttf', 45)
+            textSurfaceObj = fontObj.render(str(xp_e), True, (255, 255, 255))
+            textRectObj = textSurfaceObj.get_rect()
+            textRectObj.center = (715, 223)
+            screen.blit(textSurfaceObj, textRectObj)
+            
             fontObj = pygame.font.Font('freesansbold.ttf', 50)
             textSurfaceObj = fontObj.render(name, True, (255, 255, 255), (0, 0, 0))
             textRectObj = textSurfaceObj.get_rect()
@@ -526,12 +605,41 @@ while running:
             textRectObj = textSurfaceObj.get_rect()
             textRectObj.center = (640, 100)
             screen.blit(textSurfaceObj, textRectObj)
+            for i in range(7):
+                n = 50 * i
+                qw = [(770 + n, 40), (790 + n, 40), (800 + n, 58)]
+                qw.append((790 + n, 76))
+                qw.append((770 + n, 76))
+                qw.append((760 + n, 58))
+                if i < kolvo_mana:
+                    pygame.draw.polygon(screen, (0, 191, 255), (qw))
+                else:
+                    pygame.draw.polygon(screen, (0, 0, 255), (qw))
+            for i in range(7):
+                n = 50 * i
+                qw = [(770 + n, 640), (790 + n, 640), (800 + n, 658)]
+                qw.append((790 + n, 676))
+                qw.append((770 + n, 676))
+                qw.append((760 + n, 658))
+                if i < kolvo_mana:
+                    pygame.draw.polygon(screen, (0, 191, 255), (qw))
+                else:
+                    pygame.draw.polygon(screen, (0, 0, 255), (qw))
             if turn:
                 if prov_vzat_carty:
+                    print('Ваш ход')
                     vzat_carty('you')
+                    if kolvo_mana < 7:
+                        kolvo_mana += 1
+                    if xp_you <= 0:
+                        print('You lose!')
                     prov_vzat_carty = False
             else:
                 print('Враг сходил')
+                vzat_carty('enemy')
+                if xp_e <= 0:
+                    print('You win!')
+                prov_vzat_carty = True
                 turn = True
             if event.type == pygame.MOUSEBUTTONDOWN:
                 board.get_click(event.pos)
