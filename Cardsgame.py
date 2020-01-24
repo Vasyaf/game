@@ -97,20 +97,7 @@ class Board:
             qwe = []
             for j in range( 5):
                 qwe.append( 0)
-            self.pole.append( qwe)
-        for i in range(365, 806, 110):
-            for j in range(260, 361, 100):
-                pygame.draw.rect(screen, (120, 120, 120), (i, j, 110, 100), 5)
-        pygame.draw.rect(screen, (120, 120, 120), (565, 70, 150, 150), 5)
-        pygame.draw.rect(screen, (120, 0, 0), (565, 500, 150, 150), 5)
-        for i in range(20, 450, 100):
-            for j in range(30, 620, 500):
-                if j > 200:
-                    pygame.draw.rect(screen, (120, 120, 120), (i, j, 75, 100), 5)
-                else:
-                    pygame.draw.rect(screen, (120, 0, 0), (i, j, 75, 100), 5)
-        pygame.draw.rect(screen, (255, 153, 0), (930, 300, 74, 120))
-        pygame.draw.circle(screen, (149, 80, 12), (967, 360), 20)
+            self.pole.append(qwe)
             
     def get_click(self, mouse_pos):
         cell = self.get_cell(mouse_pos)
@@ -293,6 +280,8 @@ class Board:
                             self.ataka.image = pygame.transform.scale(load_image(qwe), (150, 140))
                             self.ataka.rect = self.ataka.image.get_rect().move(self.prov_click[0] * 55 + 475, 220)                            
                             xp_e -= 3
+                        global ris_pole
+                        ris_pole = True
             self.prov_click = None
                         
 
@@ -461,12 +450,12 @@ def vzat_carty(who):
             net_kart += 1
         else:
             kolvo -= 1        
-        for i in range(5):
-            if board.prov(3, i):
-                qw = True
-                asd = random.choice(('cheaken', 'robot'))
-                board.izm(3, i, asd, asd)
-                break
+            for i in range(5):
+                if board.prov(3, i):
+                    qw = True
+                    asd = random.choice(('cheaken', 'robot'))
+                    board.izm(3, i, asd, asd)
+                    break
     else:
         global kolvo_e
         if kolvo_e <= 0:
@@ -476,12 +465,12 @@ def vzat_carty(who):
             net_kart_e += 1
         else:
             kolvo_e -= 1        
-        for i in range(5):
-            if board.prov(2, i):
-                qw = True
-                asd = random.choice(('cheaken', 'robot'))
-                board.izm(2, i, asd, 'card.png')
-                break        
+            for i in range(5):
+                if board.prov(2, i):
+                    qw = True
+                    asd = random.choice(('cheaken', 'robot'))
+                    board.izm(2, i, asd, 'card.png')
+                    break        
 def terminate():
     pygame.quit()
     sys.exit()
@@ -506,7 +495,8 @@ exit = pygame.sprite.Sprite(all_sprites)
 exit.image = pygame.transform.scale(load_image('kres.jpg'), (50, 50))
 exit.rect = exit.image.get_rect().move(width - 50, 0)
 # картинка, нажав на которую программа закончится. Игра, если что, во весь экран.
-ekran = 6
+ekran = 1
+end_game = False
 board = Board()
 back_prov = True
 kar_nachalo_prov = True
@@ -528,6 +518,8 @@ net_kart = 1
 net_kart_e = 1
 now_mana = 0
 now_mana_e = 1
+end_game_prov = True
+ris_pole = True
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -661,6 +653,21 @@ while running:
                     screen.fill((0, 0, 0))  
                       
         elif ekran == 6:
+            if ris_pole:
+                for i in range(365, 806, 110):
+                    for j in range(260, 361, 100):
+                        pygame.draw.rect(screen, (120, 120, 120), (i, j, 110, 100), 5)
+                pygame.draw.rect(screen, (120, 120, 120), (565, 70, 150, 150), 5)
+                pygame.draw.rect(screen, (120, 0, 0), (565, 500, 150, 150), 5)
+                for i in range(20, 450, 100):
+                    for j in range(30, 620, 500):
+                        if j > 200:
+                            pygame.draw.rect(screen, (120, 120, 120), (i, j, 75, 100), 5)
+                        else:
+                            pygame.draw.rect(screen, (120, 0, 0), (i, j, 75, 100), 5)
+                pygame.draw.rect(screen, (255, 153, 0), (930, 300, 74, 120))
+                pygame.draw.circle(screen, (149, 80, 12), (967, 360), 20)
+                ris_pole = False
             if level_play == 1 and start:
                 name_e = 'Тролль'
                 kolvo_e = 7
@@ -670,9 +677,23 @@ while running:
                 xp_you = 45
                 xp_e = 15
             elif level_play == 2 and start:
-                pass
+                name_e = 'Тролль'
+                kolvo_e = 8
+                cheaken_e = 3
+                robot_e = 4
+                titan_e = 1
+                start = False
+                xp_you = 35
+                xp_e = 20
             elif level_play == 3 and start:
-                pass
+                name_e = 'Тролль'
+                kolvo_e = 13
+                cheaken_e = 4
+                robot_e = 6
+                titan_e = 3
+                start = False
+                xp_you = 25
+                xp_e = 30
             fontObj = pygame.font.Font('freesansbold.ttf', 50)
             textSurfaceObj = fontObj.render(str(kolvo), True, (255, 255, 255), (0, 0, 0))
             textRectObj = textSurfaceObj.get_rect()
@@ -740,18 +761,84 @@ while running:
                         kolvo_mana += 1
                     now_mana = kolvo_mana
                     prov_vzat_carty = False
-                    if xp_you <=  0:
-                        print('You lose!') 
             else:
                 print('Враг сходил')
                 vzat_carty('enemy')
                 now_mana_e = kolvo_mana
                 prov_vzat_carty = True
                 turn = True
-                if xp_e <=  0:
-                    print('You win!') 
-            if event.type ==  pygame.MOUSEBUTTONDOWN:
-                board.get_click(event.pos)
+            if xp_you <= 0 and end_game_prov:
+                boom = pygame.sprite.Sprite(all_sprites)
+                boom.image = pygame.transform.scale(load_image('boom.png'), (150, 150))
+                boom.rect = boom.image.get_rect().move(565, 500)
+                
+                fontObj = pygame.font.Font('freesansbold.ttf', 45)
+                textSurfaceObj = fontObj.render('You lose!', True, (255, 255, 255))
+                textRectObj = textSurfaceObj.get_rect()
+                textRectObj.center = (200, 200)
+                screen.blit(textSurfaceObj, textRectObj)
+                
+                fontObj = pygame.font.Font('freesansbold.ttf', 45)
+                textSurfaceObj = fontObj.render('Вернуться в меню', True, (255, 255, 255))
+                textRectObj = textSurfaceObj.get_rect()
+                textRectObj.center = (200, 300)
+                screen.blit(textSurfaceObj, textRectObj)                
+                end_game_prov = False
+                end_game = True
+            elif xp_e <= 0 and end_game_prov:
+                boom = pygame.sprite.Sprite(all_sprites)
+                boom.image = pygame.transform.scale(load_image('boom.png'), (150, 150))
+                boom.rect = boom.image.get_rect().move(565, 70) 
+
+                fontObj = pygame.font.Font('freesansbold.ttf', 55)
+                textSurfaceObj = fontObj.render('You win!', True, (255, 255, 255))
+                textRectObj = textSurfaceObj.get_rect()
+                textRectObj.center = (200, 200)
+                screen.blit(textSurfaceObj, textRectObj)
+                
+                fontObj = pygame.font.Font('freesansbold.ttf', 30)
+                textSurfaceObj = fontObj.render('Вернуться в меню', True, (255, 255, 255))
+                textRectObj = textSurfaceObj.get_rect()
+                textRectObj.center = (200, 300)
+                screen.blit(textSurfaceObj, textRectObj)
+                print(textRectObj)
+                end_game = True
+                end_game_prov = False
+            if end_game is False:
+                if event.type ==  pygame.MOUSEBUTTONDOWN:
+                    board.get_click(event.pos)
+            else:
+                if event.type ==  pygame.MOUSEBUTTONDOWN:
+                    if event.pos[0] >= 63 and event.pos[0] <= 337:
+                        if event.pos[1] >= 285 and event.pos[1] <= 316:
+                            screen.fill((0, 0, 0))
+                            all_sprites.empty()
+                            end_game = False
+                            board = Board()
+                            back_prov = True
+                            kar_nachalo_prov = True
+                            con = sqlite3.connect("cards_tab.db")
+                            cur = con.cursor()
+                            result = cur.execute("SELECT * FROM cards_tab").fetchall()
+                            name = result[0][0]
+                            kolvo = result[0][2]
+                            cheaken = result[0][3]
+                            robot = result[0][4]
+                            titan = result[0][5]
+                            turn = True
+                            prov_vzat_carty = True
+                            start = True
+                            kolvo_mana = 0
+                            net_kart = 1
+                            net_kart_e = 1
+                            now_mana = 0
+                            now_mana_e = 1
+                            end_game_prov = True
+                            ris_pole = True
+                            if xp_you > 0:
+                                if level_play >= level_igrok:
+                                    level_igrok += 1
+                            ekran = 3
         all_sprites.draw(screen)
     pygame.display.flip()
 terminate()
