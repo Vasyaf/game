@@ -1,17 +1,17 @@
 # -*- coding: utf-8 -*-
 # 
-#   Всем привет. Это наша программа. Она имеет жанр карточно-коллекционной игры.
+# Всем привет. Это наша программа. Она имеет жанр карточно-коллекционной игры.
 # Её название -- Cardsgame.
 #
 # 
-#   Суть такая: сначала перед игроком есть заставка. На ней он может ознакомиться
+# Суть такая: сначала перед игроком есть заставка. На ней он может ознакомиться
 # с правилами, загрузить учётную запись или создать новую. При нажатии на кнопку
 # правил будет высвечен новый экран с кнопкой возвращения в меню.
 # При нажатии на кнопку новая игра, игрок создаёт свою учётную запись.
 # Вводит свой никнейм(больше ничего не нужно). При нажатии на кнопку загрузки,
 # игрок выбирает их всех имеющихся учётных записей свою.
 #
-#     После этого появляется экран меню. Там игрок может либо посмотреть свою
+# После этого появляется экран меню. Там игрок может либо посмотреть свою
 # коллекцию карт, либо перейти к прохождению уровней. Либо вернуться
 # на заставку. При нажатии на коллекцию 
 # появляется экран со всеми его картами. Там же показано какие карты у игрока
@@ -21,7 +21,7 @@
 # можно пройти 2-ой уровень, а после его прохождения 3-ый. Уровни можно 
 # перепроходить.
 #
-#     Непесредственно об уровнях. В каждом уровне у вас будет разный противник.
+# Непесредственно об уровнях. В каждом уровне у вас будет разный противник.
 # На каждом уровне у противника будет разная колода карт. Суть сражения:
 # У игрока и противника есть их главный герой. У него есть здоровье. Если оно зако-
 # нчится победит противник. Также у игрока и противника есть колода карт. Ходят по
@@ -30,12 +30,12 @@
 # не может взять карту, то у него отнимается 3 единицы здоровья. Между игроками
 # есть так называемое поле, куда призываются воины каждого игрока или противника.
 #
-#     Что делают карты. Пока что у нас будут только карты, которые являются
+# Что делают карты. Пока что у нас будут только карты, которые являются
 # какими-то существами. То есть игрок может в свой ход разыграть карту и у него
 # на столе появится его воин. Карта имеет 4 показателя: имя существа, его урон,
 # его здоровье и стоимость карты. 
 #
-#     У каждого игрока есть кристаллы маны. В начале
+# У каждого игрока есть кристаллы маны. В начале
 # игры у каждого по 0 и в начале своего хода у тебя становиться их на один больше.
 # Максимум 8. В начале каждого своего хода кристаллы восстанавливаются и с их
 # помощью можно разыгрывать карты.
@@ -45,7 +45,7 @@
 # и нанести ему урон или ударить любого воина противника. При ударе вражеского
 # воина оба получают урон, равный атаке другово воина.
 #
-#     У нас пока только три карты: курица(все показатели раны 1), робот(все
+# У нас пока только три карты: курица(все показатели раны 1), робот(все
 # показатели равны 3) и титан(все показатели равны 7). Потом можно будет добавить
 # и более интересные карты, но пока надо сделать это. Вот наша программа.
 # 
@@ -53,9 +53,9 @@
 # записи игроков. Она будет содержать такой вид. Её название -- cards_tab. И 
 # название database тоже cards_tab.
 # __________________________________________________
-#  | Ima   | level | kolvo | Chicken | Robot | Titan |
+# | Ima | level | kolvo | Chicken | Robot | Titan |
 # --------------------------------------------------
-# 1| Igrok | 1   | 6     | 4       | 2     | 0     |
+# 1| Igrok | 1 | 6 | 4 | 2 | 0 |
 # __________________________________________________
 #
 # Имя это никнейм игрока. Уровень изначально 1-ый. Но за каждый пройденный уровень
@@ -90,24 +90,14 @@ class Board:
         self.prov_click = None
         self.rect_yellow = None
         self.prov_yellow = True
-        for i in range(4):
+        self.ataka = pygame.sprite.Sprite(all_sprites)
+        self.ataka.image = pygame.transform.scale(load_image('egg.png'), (0, 0))
+        self.ataka.rect = self.ataka.image.get_rect().move(0, 0)        
+        for i in range( 4):
             qwe = []
             for j in range(5):
                 qwe.append(0)
             self.pole.append(qwe)
-        for i in range(365, 806, 110):
-            for j in range(260, 361, 100):
-                pygame.draw.rect(screen, (120, 120, 120), (i, j, 110, 100), 5)
-        pygame.draw.rect(screen, (120, 120, 120), (565, 70, 150, 150), 5)
-        pygame.draw.rect(screen, (120, 0, 0), (565, 500, 150, 150), 5)
-        for i in range(20, 450, 100):
-            for j in range(30, 620, 500):
-                if j > 200:
-                    pygame.draw.rect(screen, (120, 120, 120), (i, j, 75, 100), 5)
-                else:
-                    pygame.draw.rect(screen, (120, 0, 0), (i, j, 75, 100), 5)
-        pygame.draw.rect(screen, (255, 153, 0), (930, 300, 74, 120))
-        pygame.draw.circle(screen, (149, 80, 12), (967, 360), 20)
             
     def get_click(self, mouse_pos):
         cell = self.get_cell(mouse_pos)
@@ -139,7 +129,7 @@ class Board:
                     if m[1] >= j and m[1] <= j + 100:
                         if j > 200:
                             if self.prov_yellow:
-                                pygame.draw.rect(screen, (255, 255, 0), (i, j, 75, 100), 5)
+                                pygame.draw.rect(screen, (255 , 255, 0), (i, j, 75, 100), 5)
                                 self.rect_yellow = (i, j, 75, 100)
                                 self.prov_yellow = False
                             else:
@@ -150,15 +140,15 @@ class Board:
             x += 1 
         if m[0] >= 565 and m[0] <= 715 and m[1] >= 70 and m[1] <= 220:
             if self.prov_yellow:
-                pygame.draw.rect(screen, (255, 255, 0), (565, 70, 150, 150), 5)
+                pygame.draw.rect(screen, (255 , 255, 0), (565, 70, 150, 150), 5)
                 self.rect_yellow = (565, 70, 150, 150)
                 self.prov_yellow = False
             else:
                 pygame.draw.rect(screen, (120, 120, 120), self.rect_yellow, 5)
                 self.prov_yellow = True            
             return 'Enemy'
-     #   if m[0] >= 565 and m[0] <= 715 and m[1] >= 500 and m[1] <= 650:          
-     #       return 'You'
+     # if m[0] >= 565 and m[0] <= 715 and m[1] >= 500 and m[1] <= 650: 
+     # return 'You'
         if m[0] >= 949 and m[0] <= 985 and m[1] >= 342 and m[1] <= 378:
             global turn
             turn = False
@@ -171,25 +161,74 @@ class Board:
         else:
             return False
     
-    def izm(self, x, y, zn, kartinka=0):
-        print(self.pole)
-        do = self.pole[x][y]
+    def izm(self, x, y, zn, kartinka= 0):
         self.pole[x][y] = zn
         if x == 3 and zn != 0:
             qwe = kartinka + '.png'
-            imag = pygame.sprite.Sprite(all_sprites)
-            imag.image = pygame.transform.scale(load_image(qwe), (75, 100))
-            imag.rect = imag.image.get_rect().move(y * 100 + 20, 530)
+            if y == 0:
+                self.imag30 = pygame.sprite.Sprite(all_sprites)
+                self.imag30.image = pygame.transform.scale(load_image(qwe), (75, 100))
+                self.imag30.rect = self.imag30.image.get_rect().move(y * 100 + 20, 530)
+            elif y == 1:
+                self.imag31 = pygame.sprite.Sprite(all_sprites)
+                self.imag31.image = pygame.transform.scale(load_image(qwe), (75, 100))
+                self.imag31.rect = self.imag31.image.get_rect().move(y * 100 + 20, 530)
+            elif y == 2:
+                self.imag32 = pygame.sprite.Sprite(all_sprites)
+                self.imag32.image = pygame.transform.scale(load_image(qwe), (75, 100))
+                self.imag32.rect = self.imag32.image.get_rect().move(y * 100 + 20, 530)
+            elif y == 3:
+                self.imag33 = pygame.sprite.Sprite(all_sprites)
+                self.imag33.image = pygame.transform.scale(load_image(qwe), (75, 100))
+                self.imag33.rect = self.imag33.image.get_rect().move(y * 100 + 20, 530)
+            elif y == 4:
+                self.imag34 = pygame.sprite.Sprite(all_sprites)
+                self.imag34.image = pygame.transform.scale(load_image(qwe), (75, 100))
+                self.imag34.rect = self.imag34.image.get_rect().move(y * 100 + 20, 530)
         elif x == 2 and zn != 0:
             imag = pygame.sprite.Sprite(all_sprites)
             imag.image = pygame.transform.scale(load_image(kartinka), (75, 100))
             imag.rect = imag.image.get_rect().move(y * 100 + 20, 30)
         elif x == 1 and zn != 0:
-            pass
+            qwe = zn + '.png'
+            if y == 0:
+                self.imag10 = pygame.sprite.Sprite(all_sprites)
+                self.imag10.image = pygame.transform.scale(load_image(qwe), (110, 100))
+                self.imag10.rect = self.imag10.image.get_rect().move(y * 110  + 365, 360)
+            elif y == 1:
+                self.imag11 = pygame.sprite.Sprite(all_sprites)
+                self.imag11.image = pygame.transform.scale(load_image(qwe), (110, 100))
+                self.imag11.rect = self.imag11.image.get_rect().move(y * 110  + 365, 360)
+            elif y == 2:
+                self.imag12 = pygame.sprite.Sprite(all_sprites)
+                self.imag12.image = pygame.transform.scale(load_image(qwe), (110, 100))
+                self.imag12.rect = self.imag12.image.get_rect().move(y * 110  + 365, 360)
+            elif y == 3:
+                self.imag13 = pygame.sprite.Sprite(all_sprites)
+                self.imag13.image = pygame.transform.scale(load_image(qwe), (110, 100))
+                self.imag13.rect = self.imag13.image.get_rect().move(y * 110  + 365, 360)
+            elif y == 4:
+                self.imag14 = pygame.sprite.Sprite(all_sprites)
+                self.imag14.image = pygame.transform.scale(load_image(qwe), (110, 100))
+                self.imag14.rect = self.imag14.image.get_rect().move(y * 110  + 365, 360)
         elif x == 0 and zn != 0:
             pass
-        elif x == 3 and zn == 0:
-            pass
+        elif x == 3 and zn == 0:          
+            if y == 0:
+                self.imag30.kill()
+                pygame.draw.rect(screen, (0, 0, 0), (23, 533, 69, 94))
+            elif y == 1:
+                self.imag31.kill()
+                pygame.draw.rect(screen, (0, 0, 0), (123, 533, 69, 94))
+            elif y == 2:
+                self.imag32.kill()
+                pygame.draw.rect(screen, (0, 0, 0), (223, 533, 69, 94))
+            elif y == 3:
+                self.imag33.kill()
+                pygame.draw.rect(screen, (0, 0, 0), (323, 533, 69, 94))
+            elif y == 4:
+                self.imag34.kill()
+                pygame.draw.rect(screen, (0, 0, 0), (423, 533, 69, 94))
         elif x == 2 and zn == 0:
             pass
         elif x == 1 and zn == 0:
@@ -198,18 +237,51 @@ class Board:
             pass        
             
     def on_click(self, infa):
-        if self.prov_click is None:
-            print(infa)
-            self.prov_click = infa
-        else:
-            if self.prov_click != 'Enemy':
-                if self.prov_click[1] == 3:
-                    if infa[1] == 1:
-                        print(self.prov_click)
-                        g = self.pole[self.prov_click[0]][self.prov_click[1]]
-                        self.izm(infa[0], infa[1], g)
-                        self.izm(self.prov_click[0], self.prov_click[1], 0)
-            self.prov_click = None
+        if infa != None:
+            if self.prov_click is None:
+                self.prov_click = infa
+            else:
+                ban = 0
+                if self.prov_click != 'Enemy':
+                    if self.prov_click[1] == 3:
+                        if infa[1] == 1:
+                            g = self.pole[self.prov_click[1]][self.prov_click[0]]
+                            global now_mana
+                            if g == 'cheaken':
+                                if now_mana - 1 < 0:
+                                    ban = 1
+                                else:
+                                    now_mana -= 1
+                            elif g == 'robot':
+                                if now_mana - 3 < 0:
+                                    ban = 1
+                                else:
+                                    now_mana -= 3                            
+                            if ban == 0:
+                                self.izm(infa[1], infa[0], g)
+                                self.izm(self.prov_click[1], self.prov_click[0], 0)
+                    elif self.prov_click[1] == 1:
+                        if infa == 'Enemy':
+                            global xp_e
+                            g = self.pole[self.prov_click[1]][self.prov_click[0]]
+                            if g == 'cheaken':
+                                pygame.draw.rect(screen, (0, 0, 0), self.ataka.rect)
+                                self.ataka.kill()
+                                self.ataka = pygame.sprite.Sprite(all_sprites)
+                                self.ataka.image = pygame.transform.scale(load_image('egg.png'), (50, 40))
+                                self.ataka.rect = self.ataka.image.get_rect().move(640, 125)
+                                xp_e -= 1
+                            elif g == 'robot':
+                                qwe = 'lighting' + str(self.prov_click[0]) + '.png'
+                                pygame.draw.rect(screen, (0, 0, 0), self.ataka.rect)
+                                self.ataka.kill()                            
+                                self.ataka = pygame.sprite.Sprite(all_sprites)
+                                self.ataka.image = pygame.transform.scale(load_image(qwe), (150, 140))
+                                self.ataka.rect = self.ataka.image.get_rect().move(self.prov_click[0] * 55 + 475, 220)                            
+                                xp_e -= 3
+                            global ris_pole
+                            ris_pole = True
+                self.prov_click = None
                         
 
     
@@ -282,8 +354,8 @@ def zastavka():
     
 
 def menu_igri():
-    fontObj = pygame.font.Font('freesansbold.ttf', 30)
-    textSurfaceObj = fontObj.render('Здесь должно быть название игры. Я просто не смог его придумать. Мдаа...', True, (255, 255, 255), (0, 0, 0))
+    fontObj = pygame.font.Font('freesansbold.ttf', 70)
+    textSurfaceObj = fontObj.render('3 Уровня', True, (255, 255, 255), (0, 0, 0))
     textRectObj = textSurfaceObj.get_rect()
     textRectObj.center = (640, 100)
     screen.blit(textSurfaceObj, textRectObj)
@@ -376,13 +448,31 @@ def vzat_carty(who):
             xp_you -= net_kart
             net_kart += 1
         else:
-            kolvo -= 1        
-        for i in range(5):
-            if board.prov(3, i):
-                qw = True
-                asd = random.choice(('cheaken', 'robot'))
-                board.izm(3, i, asd, asd)
-                break
+            kolvo -= 1
+            if kolvo == 9:
+                pygame.draw.rect(screen, (0, 0, 0), (1020, 380, 75, 210))
+            for i in range(5):
+                if board.prov(3, i):
+                    qw = True
+                    qwer = []
+                    global cheaken
+                    global robot
+                    global titan
+                    if cheaken > 0:
+                        qwer.append('cheaken')
+                    if robot > 0:
+                        qwer.append('robot')
+                    if titan > 0:
+                        qwer.append('titan')
+                    asd = random.choice(qwer)
+                    if asd == 'cheaken':
+                        cheaken -= 1
+                    elif asd == 'robot':
+                        robot -= 1
+                    elif asd == 'titan':
+                        titan -= 1
+                    board.izm(3, i, asd, asd)
+                    break
     else:
         global kolvo_e
         if kolvo_e <= 0:
@@ -391,13 +481,31 @@ def vzat_carty(who):
             xp_e -= net_kart_e
             net_kart_e += 1
         else:
-            kolvo_e -= 1        
-        for i in range(5):
-            if board.prov(2, i):
-                qw = True
-                asd = random.choice(('cheaken', 'robot'))
-                board.izm(2, i, asd, 'card.png')
-                break        
+            kolvo_e -= 1
+            if kolvo_e == 9:
+                pygame.draw.rect(screen, (0, 0, 0), (1020, 150, 75, 210))
+            for i in range(5):
+                if board.prov(2, i):
+                    qw = True
+                    qwer = []
+                    global cheaken_e
+                    global robot_e
+                    global titan_e
+                    if cheaken_e > 0:
+                        qwer.append('cheaken')
+                    if robot_e > 0:
+                        qwer.append('robot')
+                    if titan_e > 0:
+                        qwer.append('titan')
+                    asd = random.choice(qwer)
+                    if asd == 'cheaken':
+                        cheaken_e -= 1
+                    elif asd == 'robot':
+                        robot_e -= 1
+                    elif asd == 'titan':
+                        titan_e -= 1
+                    board.izm(2, i, asd, 'card.png')
+                    break        
 def terminate():
     pygame.quit()
     sys.exit()
@@ -422,7 +530,8 @@ exit = pygame.sprite.Sprite(all_sprites)
 exit.image = pygame.transform.scale(load_image('kres.jpg'), (50, 50))
 exit.rect = exit.image.get_rect().move(width - 50, 0)
 # картинка, нажав на которую программа закончится. Игра, если что, во весь экран.
-ekran = 6
+ekran = 1
+end_game = False
 board = Board()
 back_prov = True
 kar_nachalo_prov = True
@@ -442,6 +551,10 @@ start = True
 kolvo_mana = 0
 net_kart = 1
 net_kart_e = 1
+now_mana = 0
+now_mana_e = 1
+end_game_prov = True
+ris_pole = True
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -575,18 +688,48 @@ while running:
                     screen.fill((0, 0, 0))  
                       
         elif ekran == 6:
+            if ris_pole:
+                for i in range(365, 806, 110):
+                    for j in range(260, 361, 100):
+                        pygame.draw.rect(screen, (120, 120, 120), (i, j, 110, 100), 5)
+                pygame.draw.rect(screen, (120, 120, 120), (565, 70, 150, 150), 5)
+                pygame.draw.rect(screen, (120, 0, 0), (565, 500, 150, 150), 5)
+                for i in range(20, 450, 100):
+                    for j in range(30, 620, 500):
+                        if j > 200:
+                            pygame.draw.rect(screen, (120, 120, 120), (i, j, 75, 100), 5)
+                        else:
+                            pygame.draw.rect(screen, (120, 0, 0), (i, j, 75, 100), 5)
+                pygame.draw.rect(screen, (255, 153, 0), (930, 300, 74, 120))
+                pygame.draw.circle(screen, (149, 80, 12), (967, 360), 20)
+                ris_pole = False
             if level_play == 1 and start:
                 name_e = 'Тролль'
                 kolvo_e = 7
                 cheaken_e = 6
                 robot_e = 1
+                titan_e = 0
                 start = False
                 xp_you = 45
                 xp_e = 15
             elif level_play == 2 and start:
-                pass
+                name_e = 'Тролль'
+                kolvo_e = 8
+                cheaken_e = 3
+                robot_e = 4
+                titan_e = 1
+                start = False
+                xp_you = 35
+                xp_e = 20
             elif level_play == 3 and start:
-                pass
+                name_e = 'Тролль'
+                kolvo_e = 13
+                cheaken_e = 4
+                robot_e = 6
+                titan_e = 3
+                start = False
+                xp_you = 25
+                xp_e = 30
             fontObj = pygame.font.Font('freesansbold.ttf', 50)
             textSurfaceObj = fontObj.render(str(kolvo), True, (255, 255, 255), (0, 0, 0))
             textRectObj = textSurfaceObj.get_rect()
@@ -608,7 +751,7 @@ while running:
             textRectObj.center = (715, 653)
             screen.blit(textSurfaceObj, textRectObj)
             
-            pygame.draw.circle(screen, (200, 0, 0), (715, 220), 36)  
+            pygame.draw.circle(screen, (200, 0, 0), (715, 220), 36) 
             fontObj = pygame.font.Font('freesansbold.ttf', 45)
             textSurfaceObj = fontObj.render(str(xp_e), True, (255, 255, 255))
             textRectObj = textSurfaceObj.get_rect()
@@ -632,7 +775,7 @@ while running:
                 qw.append((790 + n, 76))
                 qw.append((770 + n, 76))
                 qw.append((760 + n, 58))
-                if i < kolvo_mana:
+                if i < now_mana_e:
                     pygame.draw.polygon(screen, (0, 191, 255), (qw))
                 else:
                     pygame.draw.polygon(screen, (0, 0, 255), (qw))
@@ -642,28 +785,97 @@ while running:
                 qw.append((790 + n, 676))
                 qw.append((770 + n, 676))
                 qw.append((760 + n, 658))
-                if i < kolvo_mana:
+                if i < now_mana:
                     pygame.draw.polygon(screen, (0, 191, 255), (qw))
                 else:
                     pygame.draw.polygon(screen, (0, 0, 255), (qw))
             if turn:
                 if prov_vzat_carty:
-                    print('Ваш ход')
                     vzat_carty('you')
                     if kolvo_mana < 7:
                         kolvo_mana += 1
+                    now_mana = kolvo_mana
                     prov_vzat_carty = False
-                    if xp_you <= 0:
-                        print('You lose!')                    
             else:
-                print('Враг сходил')
                 vzat_carty('enemy')
+                now_mana_e = kolvo_mana
                 prov_vzat_carty = True
                 turn = True
-                if xp_e <= 0:
-                    print('You win!')                
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                board.get_click(event.pos)
+            if xp_you <= 0 and end_game_prov:
+                boom = pygame.sprite.Sprite(all_sprites)
+                boom.image = pygame.transform.scale(load_image('boom.png'), (150, 150))
+                boom.rect = boom.image.get_rect().move(565, 500)
+                
+                fontObj = pygame.font.Font('freesansbold.ttf', 45)
+                textSurfaceObj = fontObj.render('You lose!', True, (255, 255, 255))
+                textRectObj = textSurfaceObj.get_rect()
+                textRectObj.center = (200, 200)
+                screen.blit(textSurfaceObj, textRectObj)
+                
+                fontObj = pygame.font.Font('freesansbold.ttf', 45)
+                textSurfaceObj = fontObj.render('Вернуться в меню', True, (255, 255, 255))
+                textRectObj = textSurfaceObj.get_rect()
+                textRectObj.center = (200, 300)
+                screen.blit(textSurfaceObj, textRectObj)                
+                end_game_prov = False
+                end_game = True
+            elif xp_e <= 0 and end_game_prov:
+                boom = pygame.sprite.Sprite(all_sprites)
+                boom.image = pygame.transform.scale(load_image('boom.png'), (150, 150))
+                boom.rect = boom.image.get_rect().move(565, 70) 
+
+                fontObj = pygame.font.Font('freesansbold.ttf', 55)
+                textSurfaceObj = fontObj.render('You win!', True, (255, 255, 255))
+                textRectObj = textSurfaceObj.get_rect()
+                textRectObj.center = (200, 200)
+                screen.blit(textSurfaceObj, textRectObj)
+                
+                fontObj = pygame.font.Font('freesansbold.ttf', 30)
+                textSurfaceObj = fontObj.render('Вернуться в меню', True, (255, 255, 255))
+                textRectObj = textSurfaceObj.get_rect()
+                textRectObj.center = (200, 300)
+                screen.blit(textSurfaceObj, textRectObj)
+                end_game = True
+                end_game_prov = False
+            if end_game is False:
+                if event.type ==  pygame.MOUSEBUTTONDOWN:
+                    board.get_click(event.pos)
+            else:
+                if event.type ==  pygame.MOUSEBUTTONDOWN:
+                    if event.pos[0] >= 63 and event.pos[0] <= 337:
+                        if event.pos[1] >= 285 and event.pos[1] <= 316:
+                            screen.fill((0, 0, 0))
+                            all_sprites.empty()
+                            end_game = False
+                            board = Board()
+                            back_prov = True
+                            kar_nachalo_prov = True
+                            con = sqlite3.connect("cards_tab.db")
+                            cur = con.cursor()
+                            result = cur.execute("SELECT * FROM cards_tab").fetchall()
+                            name = result[0][0]
+                            kolvo = result[0][2]
+                            cheaken = result[0][3]
+                            robot = result[0][4]
+                            titan = result[0][5]
+                            cheaken += 2
+                            robot += 1
+                            titan += 1
+                            kolvo += 4
+                            turn = True
+                            prov_vzat_carty = True
+                            start = True
+                            kolvo_mana = 0
+                            net_kart = 1
+                            net_kart_e = 1
+                            now_mana = 0
+                            now_mana_e = 1
+                            end_game_prov = True
+                            ris_pole = True
+                            if xp_you > 0:
+                                if level_play >= level_igrok:
+                                    level_igrok += 1
+                            ekran = 3
         all_sprites.draw(screen)
     pygame.display.flip()
 terminate()
