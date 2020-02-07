@@ -385,26 +385,46 @@ class Board:
                 self.imag10 = pygame.sprite.Sprite(all_sprites)
                 self.imag10.image = pygame.transform.scale(load_image(qwe), (110, 100))
                 self.imag10.rect = self.imag10.image.get_rect().move(y * 110  + 365, 360)
+                if zn == 'cheaken' or zn == 'titan':
+                    self.xp_10 = 1
+                elif zn == 'robot':
+                    self.xp_10 = 3
             elif y == 1:
                 self.imag11.kill()
                 self.imag11 = pygame.sprite.Sprite(all_sprites)
                 self.imag11.image = pygame.transform.scale(load_image(qwe), (110, 100))
                 self.imag11.rect = self.imag11.image.get_rect().move(y * 110  + 365, 360)
+                if zn == 'cheaken' or zn == 'titan':
+                    self.xp_11 = 1
+                elif zn == 'robot':
+                    self.xp_11 = 3                
             elif y == 2:
                 self.imag12.kill()
                 self.imag12 = pygame.sprite.Sprite(all_sprites)
                 self.imag12.image = pygame.transform.scale(load_image(qwe), (110, 100))
                 self.imag12.rect = self.imag12.image.get_rect().move(y * 110  + 365, 360)
+                if zn == 'cheaken' or zn == 'titan':
+                    self.xp_12 = 1
+                elif zn == 'robot':
+                    self.xp_12 = 3                
             elif y == 3:
                 self.imag13.kill()
                 self.imag13 = pygame.sprite.Sprite(all_sprites)
                 self.imag13.image = pygame.transform.scale(load_image(qwe), (110, 100))
                 self.imag13.rect = self.imag13.image.get_rect().move(y * 110  + 365, 360)
+                if zn == 'cheaken' or zn == 'titan':
+                    self.xp_13 = 1
+                elif zn == 'robot':
+                    self.xp_13 = 3                
             elif y == 4:
                 self.imag14.kill()
                 self.imag14 = pygame.sprite.Sprite(all_sprites)
                 self.imag14.image = pygame.transform.scale(load_image(qwe), (110, 100))
                 self.imag14.rect = self.imag14.image.get_rect().move(y * 110  + 365, 360)
+                if zn == 'cheaken' or zn == 'titan':
+                    self.xp_14 = 1
+                elif zn == 'robot':
+                    self.xp_14 = 3                
         elif x == 0 and zn != 0:
             qwe = zn + '.png'
             if y == 0:
@@ -412,26 +432,46 @@ class Board:
                 self.imag00 = pygame.sprite.Sprite(all_sprites)
                 self.imag00.image = pygame.transform.scale(load_image(qwe), (110, 100))
                 self.imag00.rect = self.imag00.image.get_rect().move(y * 110  + 365, 260)
+                if zn == 'cheaken' or zn == 'titan':
+                    self.xp_00 = 1
+                elif zn == 'robot':
+                    self.xp_00 = 3                
             elif y == 1:
                 self.imag01.kill()
                 self.imag01 = pygame.sprite.Sprite(all_sprites)
                 self.imag01.image = pygame.transform.scale(load_image(qwe), (110, 100))
                 self.imag01.rect = self.imag01.image.get_rect().move(y * 110  + 365, 260)
+                if zn == 'cheaken' or zn == 'titan':
+                    self.xp_01 = 1
+                elif zn == 'robot':
+                    self.xp_01 = 3                
             elif y == 2:
                 self.imag02.kill()
                 self.imag02 = pygame.sprite.Sprite(all_sprites)
                 self.imag02.image = pygame.transform.scale(load_image(qwe), (110, 100))
                 self.imag02.rect = self.imag02.image.get_rect().move(y * 110  + 365, 260)
+                if zn == 'cheaken' or zn == 'titan':
+                    self.xp_02 = 1
+                elif zn == 'robot':
+                    self.xp_02 = 3                
             elif y == 3:
                 self.imag03.kill()
                 self.imag03 = pygame.sprite.Sprite(all_sprites)
                 self.imag03.image = pygame.transform.scale(load_image(qwe), (110, 100))
                 self.imag03.rect = self.imag03.image.get_rect().move(y * 110  + 365, 260)
+                if zn == 'cheaken' or zn == 'titan':
+                    self.xp_03 = 1
+                elif zn == 'robot':
+                    self.xp_03 = 3                
             elif y == 4:
                 self.imag04.kill()
                 self.imag04 = pygame.sprite.Sprite(all_sprites)
                 self.imag04.image = pygame.transform.scale(load_image(qwe), (110, 100))
-                self.imag04.rect = self.imag04.image.get_rect().move(y * 110  + 365, 260)            
+                self.imag04.rect = self.imag04.image.get_rect().move(y * 110  + 365, 260)
+                if zn == 'cheaken' or zn == 'titan':
+                    self.xp_04 = 1
+                elif zn == 'robot':
+                    self.xp_04 = 3                
         elif x == 3 and zn == 0:          
             if y == 0:
                 self.imag30.kill()
@@ -443,6 +483,7 @@ class Board:
                 self.imag33.kill()
             elif y == 4:
                 self.imag34.kill()
+            self.pole[x][y] = 0
         elif x == 2 and zn == 0:
             if y == 0:
                 self.imag20.kill()
@@ -454,10 +495,33 @@ class Board:
                 self.imag23.kill()
             elif y == 4:
                 self.imag24.kill()
+            self.pole[x][y] = 0
         elif x == 1 and zn == 0:
-            pass
+            if y == 0:
+                self.imag10.kill()
+            elif y == 1:
+                self.imag11.kill()
+            elif y == 2:
+                self.imag12.kill()
+            elif y == 3:
+                self.imag13.kill()
+            elif y == 4:
+                self.imag14.kill()
+            self.pole[x][y] = 0
+            ris_fon()
         elif x == 0 and zn == 0:
-            pass        
+            if y == 0:
+                self.imag00.kill()
+            elif y == 1:
+                self.imag01.kill()
+            elif y == 2:
+                self.imag02.kill()
+            elif y == 3:
+                self.imag03.kill()
+            elif y == 4:
+                self.imag04.kill()
+            self.pole[x][y] = 0
+            ris_fon()
             
     def on_click(self, infa):
         if infa != None:
@@ -633,7 +697,70 @@ class Board:
                                 ataka.kill()
                                 ris_fon() 
                                 xp_e -= 3
-                            
+                        if infa[1] == 0 and self.pole[infa[1]][infa[0]] != 0:
+                            if self.pole[self.prov_click[1]][self.prov_click[0]] != 0:
+                                your = self.pole[self.prov_click[1]][self.prov_click[0]]
+                                at = 0
+                                if your == 'cheaken':
+                                    at += 1
+                                elif your == 'robot':
+                                    at += 3
+                                
+                                en = self.pole[infa[1]][infa[0]]
+                                at_e = 0
+                                if en == 'cheaken':
+                                    at_e += 1
+                                elif en == 'robot':
+                                    at_e += 3
+                                    
+                                draka = pygame.sprite.Sprite(all_sprites)
+                                draka.image = pygame.transform.scale(load_image('draka.png'), (100, 100))
+                                draka.rect = draka.image.get_rect().move(590, 310)
+                                all_sprites.draw(screen)
+                                pygame.display.flip()
+                                clock.tick(1)
+                                draka.kill()
+                                if infa[0] == 0:
+                                    self.xp_00 -= at
+                                    if self.xp_00 <= 0:
+                                        board.izm(infa[1], infa[0], 0)
+                                elif infa[0] == 1:
+                                    self.xp_01 -= at
+                                    if self.xp_01 <= 0:
+                                        board.izm(infa[1], infa[0], 0)                                    
+                                elif infa[0] == 2:
+                                    self.xp_02 -= at
+                                    if self.xp_02 <= 0:
+                                        board.izm(infa[1], infa[0], 0)                                    
+                                elif infa[0] == 3:
+                                    self.xp_03 -= at
+                                    if self.xp_03 <= 0:
+                                        board.izm(infa[1], infa[0], 0)                                    
+                                elif infa[0] == 4:
+                                    self.xp_04 -= at
+                                    if self.xp_04 <= 0:
+                                        board.izm(infa[1], infa[0], 0)                                    
+                                
+                                if self.prov_click[0] == 0:
+                                    self.xp_10 -= at_e
+                                    if self.xp_10 <= 0:
+                                        board.izm(self.prov_click[1], self.prov_click[0], 0)                                    
+                                elif self.prov_click[0] == 1:
+                                    self.xp_11 -= at_e
+                                    if self.xp_11 <= 0:
+                                        board.izm(self.prov_click[1], self.prov_click[0], 0)                                     
+                                elif self.prov_click[0] == 2:
+                                    self.xp_12 -= at_e
+                                    if self.xp_12 <= 0:
+                                        board.izm(self.prov_click[1], self.prov_click[0], 0)                                     
+                                elif self.prov_click[0] == 3:
+                                    self.xp_13 -= at_e
+                                    if self.xp_13 <= 0:
+                                        board.izm(self.prov_click[1], self.prov_click[0], 0)                                     
+                                elif self.prov_click[0] == 4:
+                                    self.xp_14 -= at_e
+                                    if self.xp_14 <= 0:
+                                        board.izm(self.prov_click[1], self.prov_click[0], 0)                                     
                     if self.prov_click[1] == 2:
                         if infa[1] == 0:
                             g = self.pole[self.prov_click[1]][self.prov_click[0]]
@@ -776,92 +903,39 @@ class Board:
                     if self.prov_click[1] == 0:
                         if infa == 'you':
                             global xp_you
-                        g = self.pole[self.prov_click[1]][self.prov_click[0]]
-                        if g == 'cheaken':
-                            ataka = pygame.sprite.Sprite(all_sprites)
-                            ataka.image = pygame.transform.scale(load_image('egg.png'), (50, 40))
-                            ataka.rect = ataka.image.get_rect().move(640, 550)
-                            all_sprites.draw(screen)
-                            clock.tick(2.5)
-                            pygame.display.flip()
-                            clock.tick(2.5)
-                            ataka.kill()
-                            ris_fon()                               
-                            xp_you -= 1
-                        elif g == 'robot':
-                            qwe = 'lighting' + str(self.prov_click[0]) + '.png'                           
-                            ataka = pygame.sprite.Sprite(all_sprites)
-                            ataka.image = pygame.transform.scale(load_image(qwe), (150, 140))
-                            ataka.rect = ataka.image.get_rect().move(self.prov_click[0] * 55 + 475, 420)
-                            all_sprites.draw(screen)
-                            clock.tick(2.5)
-                            pygame.display.flip()
-                            clock.tick(2.5)
-                            ataka.kill()
-                            ris_fon() 
-                            xp_you -= 3
+                            g = self.pole[self.prov_click[1]][self.prov_click[0]]
+                            if g == 'cheaken':
+                                ataka = pygame.sprite.Sprite(all_sprites)
+                                ataka.image = pygame.transform.scale(load_image('egg.png'), (50, 40))
+                                ataka.rect = ataka.image.get_rect().move(640, 550)
+                                all_sprites.draw(screen)
+                                clock.tick(2.5)
+                                pygame.display.flip()
+                                clock.tick(2.5)
+                                ataka.kill()
+                                ris_fon()                               
+                                xp_you -= 1
+                            elif g == 'robot':
+                                qwe = 'lighting' + str(self.prov_click[0]) + '.png'                           
+                                ataka = pygame.sprite.Sprite(all_sprites)
+                                ataka.image = pygame.transform.scale(load_image(qwe), (150, 140))
+                                ataka.rect = ataka.image.get_rect().move(self.prov_click[0] * 55 + 475, 420)
+                                all_sprites.draw(screen)
+                                clock.tick(2.5)
+                                pygame.display.flip()
+                                clock.tick(2.5)
+                                ataka.kill()
+                                ris_fon() 
+                                xp_you -= 3
                         ris_pole = True
                 self.prov_click = None
-                        
-
-    
-class Card:
-    def __init__(self, mana, yron, xp, kartinka=None):
-        self.mana = mana
-        self.yron = yron
-        self.xp = xp
-        self.kartinka = kartinka
-        
-    def ranen(self, yron):
-        self.xp -= yron
-        if xp <= 0:
-            pass
-
-
-class Cheaken(Card):
-    def __init__(self):
-        self.mana = 1
-        self.yron = 1
-        self.xp = 1
-        self.kartinka = 'cheaken.png'
-
-
-class Robot(Card):
-    def __init__(self):
-        self.mana = 3
-        self.yron = 3
-        self.xp = 3
-        self.kartinka = 'robot.png'
-
-
-class Titan(Card):
-    def __init__(self):
-        self.mana = 7
-        self.yron = 7
-        self.xp = 7
-      #  self.kartinka = 
 
 
 class Igrok:
     pass
     # Это класс учётной записи каждого игрока. Именно здесь мы задействуем
     # базу данных.
-
-
-class Allcards:
-    pass
-    # Это класс всех карт.
     
-
-def kollekchia():
-    fontObj = pygame.font.Font('freesansbold.ttf', 40)
-    textSurfaceObj = fontObj.render('Здесь будет вся коллекция карт', True, (255, 255, 255), (0, 0, 0))
-    textRectObj = textSurfaceObj.get_rect()
-    textRectObj.center = (600, 250)
-    screen.blit(textSurfaceObj, textRectObj)
-    pygame.draw.rect(screen, (0, 120, 0), (100, 50, 100, 150), 3)
-    pygame.draw.rect(screen, (0, 120, 0), (230, 50, 100, 150), 3)
-    pygame.draw.rect(screen, (0, 120, 0), (360, 50, 100, 150), 3)    
 
 def menu_yrovneu():
     fontObj = pygame.font.Font('freesansbold.ttf', 40)
@@ -1192,6 +1266,8 @@ while running:
                 if event.pos[0] >= 190 and event.pos[0] <= 1090:
                     if event.pos[1] >= 515 and event.pos[1] <= 580:
                         ekran = 5
+                        back.kill()
+                        back_prov = True                        
                         screen.fill((0, 0, 0))
                 
         elif ekran == 4:
@@ -1203,7 +1279,7 @@ while running:
             exit = pygame.sprite.Sprite(all_sprites)
             exit.image = pygame.transform.scale(load_image('kres.jpg'), (50, 50))
             exit.rect = exit.image.get_rect().move(width - 50, 0)            
-            fon.kill()            
+            fon.kill()          
             menu_yrovneu()
             if back_prov:
                 back = pygame.sprite.Sprite(all_sprites)
@@ -1248,17 +1324,54 @@ while running:
             exit.kill()
             exit = pygame.sprite.Sprite(all_sprites)
             exit.image = pygame.transform.scale(load_image('kres.jpg'), (50, 50))
-            exit.rect = exit.image.get_rect().move(width - 50, 0)            
-            kollekchia()
+            exit.rect = exit.image.get_rect().move(width - 50, 0)
+            
+            pygame.draw.rect(screen, (0, 120, 0), (100, 50, 100, 150), 3)
+            pygame.draw.circle(screen, (0, 0, 0), (150, 250), 36, 3)
+            fontObj = pygame.font.Font('freesansbold.ttf', 45)
+            textSurfaceObj = fontObj.render(str(cheaken), True, (255, 0, 0))
+            textRectObj = textSurfaceObj.get_rect()
+            textRectObj.center = (150, 250)
+            screen.blit(textSurfaceObj, textRectObj)
+            
+            pygame.draw.rect(screen, (0, 120, 0), (230, 50, 100, 150), 3)
+            pygame.draw.circle(screen, (0, 0, 0), (280, 250), 36, 3)
+            fontObj = pygame.font.Font('freesansbold.ttf', 45)
+            textSurfaceObj = fontObj.render(str(robot), True, (255, 0, 0))
+            textRectObj = textSurfaceObj.get_rect()
+            textRectObj.center = (280, 250)
+            screen.blit(textSurfaceObj, textRectObj)
+            
+            pygame.draw.rect(screen, (0, 120, 0), (360, 50, 100, 150), 3)
+            pygame.draw.circle(screen, (0, 0, 0), (410, 250), 36, 3)
+            fontObj = pygame.font.Font('freesansbold.ttf', 45)
+            textSurfaceObj = fontObj.render(str(titan), True, (255, 0, 0))
+            textRectObj = textSurfaceObj.get_rect()
+            textRectObj.center = (410, 250)
+            screen.blit(textSurfaceObj, textRectObj)            
             if back_prov:
                 back = pygame.sprite.Sprite(all_sprites)
                 back.image = pygame.transform.scale(load_image('back.png'), (50, 50))
                 back.rect = back.image.get_rect().move(0, 0)
-                back_prov = False             
+                back_prov = False
+                
+                ch_en = pygame.sprite.Sprite(all_sprites)
+                ch_en.image = pygame.transform.scale(load_image('cheaken.png'), (100, 150))
+                ch_en.rect = ch_en.image.get_rect().move(100, 50)
+                
+                ro_ot = pygame.sprite.Sprite(all_sprites)
+                ro_ot.image = pygame.transform.scale(load_image('robot.png'), (100, 150))
+                ro_ot.rect = ro_ot.image.get_rect().move(230, 50)
+                ti_an = pygame.sprite.Sprite(all_sprites)
+                ti_an.image = pygame.transform.scale(load_image('titan.png'), (100, 150))
+                ti_an.rect = ti_an.image.get_rect().move(360, 50)                   
             if event.type == pygame.MOUSEBUTTONUP:
                 if event.pos[0] <= 50 and event.pos[1] <= 50:
                     ekran = 3
                     back.kill()
+                    ch_en.kill()
+                    ro_ot.kill()
+                    ti_an.kill()                      
                     back_prov = True
                     screen.fill((0, 0, 0))  
                       
@@ -1416,18 +1529,29 @@ while running:
                             if rand != None and rand_2 != None:
                                 board.on_click((rand, 2))
                                 board.on_click((rand_2, 0))
-                if xp_e > 0:
+                if xp_e > 0 and xp_you > 0:
                     if board.prov(0, enemy_turn) is False:
-                        board.on_click((enemy_turn, 0))
-                        board.on_click('you')
-                prov_vzat_carty = True
-                if enemy_turn == 4:
-                    turn = True
-                enemy_turn += 1
-            if xp_you <= 0 and end_game_prov:
-                boom = pygame.sprite.Sprite(all_sprites)
-                boom.image = pygame.transform.scale(load_image('boom.png'), (150, 150))
-                boom.rect = boom.image.get_rect().move(565, 500)
+                        who = random.randrange(0, 6)
+                        while who != 5:
+                            if board.prov(1, who) is False:
+                                break
+                            who = random.randrange(0, 6)
+                        if who != 5:
+                            board.on_click((who, 1))
+                            board.on_click((enemy_turn, 0))
+                        else:
+                            board.on_click((enemy_turn, 0))
+                            board.on_click('you')
+                if (xp_e > 0 and xp_you > 0) or enemy_turn == 0:
+                    if enemy_turn == 4:
+                        turn = True
+                    enemy_turn += 1
+                    prov_vzat_carty = True
+            if xp_you <= 0 :
+                if end_game_prov:
+                    boom = pygame.sprite.Sprite(all_sprites)
+                    boom.image = pygame.transform.scale(load_image('boom.png'), (150, 150))
+                    boom.rect = boom.image.get_rect().move(565, 500)
                 
                 fontObj = pygame.font.Font('freesansbold.ttf', 45)
                 textSurfaceObj = fontObj.render('You lose!', True, (0, 85, 255))
@@ -1443,9 +1567,10 @@ while running:
                 end_game_prov = False
                 end_game = True
             elif xp_e <= 0 and end_game_prov:
-                boom = pygame.sprite.Sprite(all_sprites)
-                boom.image = pygame.transform.scale(load_image('boom.png'), (150, 150))
-                boom.rect = boom.image.get_rect().move(565, 70) 
+                if end_game_prov:
+                    boom = pygame.sprite.Sprite(all_sprites)
+                    boom.image = pygame.transform.scale(load_image('boom.png'), (150, 150))
+                    boom.rect = boom.image.get_rect().move(565, 70) 
 
                 fontObj = pygame.font.Font('freesansbold.ttf', 55)
                 textSurfaceObj = fontObj.render('You win!', True, (0, 85, 255))
