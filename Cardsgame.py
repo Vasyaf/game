@@ -190,7 +190,7 @@ class Board:
                     if m[1] >= j and m[1] <= j + 100:
                         if j > 200:
                             if self.prov_yellow:
-                                pygame.draw.rect(screen, (255 , 255, 0), (i, j, 75, 100), 5)
+                                pygame.draw.rect(screen, (255, 255, 0), (i, j, 75, 100), 5)
                                 self.rect_yellow = (i, j, 75, 100)
                                 self.prov_yellow = False
                             else:
@@ -201,15 +201,13 @@ class Board:
             x += 1 
         if m[0] >= 565 and m[0] <= 715 and m[1] >= 70 and m[1] <= 220:
             if self.prov_yellow:
-                pygame.draw.rect(screen, (255 , 255, 0), (565, 70, 150, 150), 5)
+                pygame.draw.rect(screen, (255, 255, 0), (565, 70, 150, 150), 5)
                 self.rect_yellow = (565, 70, 150, 150)
                 self.prov_yellow = False
             else:
                 pygame.draw.rect(screen, (120, 120, 120), self.rect_yellow, 5)
                 self.prov_yellow = True            
             return 'Enemy'
-     # if m[0] >= 565 and m[0] <= 715 and m[1] >= 500 and m[1] <= 650: 
-     # return 'You'
         if m[0] >= 949 and m[0] <= 985 and m[1] >= 342 and m[1] <= 378:
             global turn
             turn = False
@@ -384,7 +382,7 @@ class Board:
                 self.imag10.kill()
                 self.imag10 = pygame.sprite.Sprite(all_sprites)
                 self.imag10.image = pygame.transform.scale(load_image(qwe), (110, 100))
-                self.imag10.rect = self.imag10.image.get_rect().move(y * 110  + 365, 360)
+                self.imag10.rect = self.imag10.image.get_rect().move(y * 110 + 365, 360)
                 if zn == 'cheaken' or zn == 'titan':
                     self.xp_10 = 1
                 elif zn == 'robot':
@@ -393,7 +391,7 @@ class Board:
                 self.imag11.kill()
                 self.imag11 = pygame.sprite.Sprite(all_sprites)
                 self.imag11.image = pygame.transform.scale(load_image(qwe), (110, 100))
-                self.imag11.rect = self.imag11.image.get_rect().move(y * 110  + 365, 360)
+                self.imag11.rect = self.imag11.image.get_rect().move(y * 110 + 365, 360)
                 if zn == 'cheaken' or zn == 'titan':
                     self.xp_11 = 1
                 elif zn == 'robot':
@@ -402,7 +400,7 @@ class Board:
                 self.imag12.kill()
                 self.imag12 = pygame.sprite.Sprite(all_sprites)
                 self.imag12.image = pygame.transform.scale(load_image(qwe), (110, 100))
-                self.imag12.rect = self.imag12.image.get_rect().move(y * 110  + 365, 360)
+                self.imag12.rect = self.imag12.image.get_rect().move(y * 110 + 365, 360)
                 if zn == 'cheaken' or zn == 'titan':
                     self.xp_12 = 1
                 elif zn == 'robot':
@@ -411,7 +409,7 @@ class Board:
                 self.imag13.kill()
                 self.imag13 = pygame.sprite.Sprite(all_sprites)
                 self.imag13.image = pygame.transform.scale(load_image(qwe), (110, 100))
-                self.imag13.rect = self.imag13.image.get_rect().move(y * 110  + 365, 360)
+                self.imag13.rect = self.imag13.image.get_rect().move(y * 110 + 365, 360)
                 if zn == 'cheaken' or zn == 'titan':
                     self.xp_13 = 1
                 elif zn == 'robot':
@@ -420,7 +418,7 @@ class Board:
                 self.imag14.kill()
                 self.imag14 = pygame.sprite.Sprite(all_sprites)
                 self.imag14.image = pygame.transform.scale(load_image(qwe), (110, 100))
-                self.imag14.rect = self.imag14.image.get_rect().move(y * 110  + 365, 360)
+                self.imag14.rect = self.imag14.image.get_rect().move(y * 110 + 365, 360)
                 if zn == 'cheaken' or zn == 'titan':
                     self.xp_14 = 1
                 elif zn == 'robot':
@@ -431,7 +429,7 @@ class Board:
                 self.imag00.kill()
                 self.imag00 = pygame.sprite.Sprite(all_sprites)
                 self.imag00.image = pygame.transform.scale(load_image(qwe), (110, 100))
-                self.imag00.rect = self.imag00.image.get_rect().move(y * 110  + 365, 260)
+                self.imag00.rect = self.imag00.image.get_rect().move(y * 110 + 365, 260)
                 if zn == 'cheaken' or zn == 'titan':
                     self.xp_00 = 1
                 elif zn == 'robot':
@@ -440,7 +438,7 @@ class Board:
                 self.imag01.kill()
                 self.imag01 = pygame.sprite.Sprite(all_sprites)
                 self.imag01.image = pygame.transform.scale(load_image(qwe), (110, 100))
-                self.imag01.rect = self.imag01.image.get_rect().move(y * 110  + 365, 260)
+                self.imag01.rect = self.imag01.image.get_rect().move(y * 110 + 365, 260)
                 if zn == 'cheaken' or zn == 'titan':
                     self.xp_01 = 1
                 elif zn == 'robot':
@@ -449,7 +447,7 @@ class Board:
                 self.imag02.kill()
                 self.imag02 = pygame.sprite.Sprite(all_sprites)
                 self.imag02.image = pygame.transform.scale(load_image(qwe), (110, 100))
-                self.imag02.rect = self.imag02.image.get_rect().move(y * 110  + 365, 260)
+                self.imag02.rect = self.imag02.image.get_rect().move(y * 110 + 365, 260)
                 if zn == 'cheaken' or zn == 'titan':
                     self.xp_02 = 1
                 elif zn == 'robot':
@@ -458,7 +456,7 @@ class Board:
                 self.imag03.kill()
                 self.imag03 = pygame.sprite.Sprite(all_sprites)
                 self.imag03.image = pygame.transform.scale(load_image(qwe), (110, 100))
-                self.imag03.rect = self.imag03.image.get_rect().move(y * 110  + 365, 260)
+                self.imag03.rect = self.imag03.image.get_rect().move(y * 110 + 365, 260)
                 if zn == 'cheaken' or zn == 'titan':
                     self.xp_03 = 1
                 elif zn == 'robot':
@@ -467,7 +465,7 @@ class Board:
                 self.imag04.kill()
                 self.imag04 = pygame.sprite.Sprite(all_sprites)
                 self.imag04.image = pygame.transform.scale(load_image(qwe), (110, 100))
-                self.imag04.rect = self.imag04.image.get_rect().move(y * 110  + 365, 260)
+                self.imag04.rect = self.imag04.image.get_rect().move(y * 110 + 365, 260)
                 if zn == 'cheaken' or zn == 'titan':
                     self.xp_04 = 1
                 elif zn == 'robot':
@@ -524,7 +522,7 @@ class Board:
             ris_fon()
             
     def on_click(self, infa):
-        if infa != None:
+        if infa is not None:
             if self.prov_click is None:
                 self.prov_click = infa
             else:
@@ -564,11 +562,14 @@ class Board:
                                     for i in range(20 + self.prov_click[0] * 100, 366, a):
                                         self.imag10.kill()
                                         self.imag10 = pygame.sprite.Sprite(all_sprites)
-                                        self.imag10.image = pygame.transform.scale(load_image(gg), (75, 100))
+                                        self.imag10.image = pygame.transform.scale(
+                                            load_image(gg), (75, 100))
                                         if self.prov_click[0] == 0:
-                                            self.imag10.rect = self.imag10.image.get_rect().move(i, 453 - i // 5)
+                                            self.imag10.rect = self.imag10.image.get_rect().move(
+                                                i, 453 - i // 5)
                                         else:
-                                            self.imag10.rect = self.imag10.image.get_rect().move(i, 453 - i // (self.prov_click[0] * 5))
+                                            self.imag10.rect = self.imag10.image.get_rect().move(
+                                                i, 453 - i // (self.prov_click[0] * 5))
                                         all_sprites.draw(screen)
                                         pygame.display.flip()
                                         ris_fon()
@@ -589,11 +590,14 @@ class Board:
                                     for i in range(20 + self.prov_click[0] * 100, 466, a):
                                         self.imag11.kill()
                                         self.imag11 = pygame.sprite.Sprite(all_sprites)
-                                        self.imag11.image = pygame.transform.scale(load_image(gg), (75, 100))
+                                        self.imag11.image = pygame.transform.scale(load_image(
+                                            gg), (75, 100))
                                         if self.prov_click[0] == 0:
-                                            self.imag11.rect = self.imag11.image.get_rect().move(i, 453 - i // 5)
+                                            self.imag11.rect = self.imag11.image.get_rect().move(
+                                                i, 453 - i // 5)
                                         else:
-                                            self.imag11.rect = self.imag11.image.get_rect().move(i, 453 - i // (self.prov_click[0] * 5))
+                                            self.imag11.rect = self.imag11.image.get_rect().move(
+                                                i, 453 - i // (self.prov_click[0] * 5))
                                         all_sprites.draw(screen)
                                         pygame.display.flip()
                                         ris_fon()
@@ -612,11 +616,14 @@ class Board:
                                     for i in range(20 + self.prov_click[0] * 100, 566, a):
                                         self.imag12.kill()
                                         self.imag12 = pygame.sprite.Sprite(all_sprites)
-                                        self.imag12.image = pygame.transform.scale(load_image(gg), (75, 100))
+                                        self.imag12.image = pygame.transform.scale(
+                                            load_image(gg), (75, 100))
                                         if self.prov_click[0] == 0:
-                                            self.imag12.rect = self.imag12.image.get_rect().move(i, 453 - i // 5)
+                                            self.imag12.rect = self.imag12.image.get_rect().move(
+                                                i, 453 - i // 5)
                                         else:
-                                            self.imag12.rect = self.imag12.image.get_rect().move(i, 453 - i // (self.prov_click[0] * 5))
+                                            self.imag12.rect = self.imag12.image.get_rect().move(
+                                                i, 453 - i // (self.prov_click[0] * 5))
                                         all_sprites.draw(screen)
                                         pygame.display.flip()
                                         ris_fon() 
@@ -635,11 +642,14 @@ class Board:
                                     for i in range(20 + self.prov_click[0] * 100, 667, a):
                                         self.imag13.kill()
                                         self.imag13 = pygame.sprite.Sprite(all_sprites)
-                                        self.imag13.image = pygame.transform.scale(load_image(gg), (75, 100))
+                                        self.imag13.image = pygame.transform.scale(
+                                            load_image(gg), (75, 100))
                                         if self.prov_click[0] == 0:
-                                            self.imag13.rect = self.imag13.image.get_rect().move(i, 463 - i // 5)
+                                            self.imag13.rect = self.imag13.image.get_rect().move(
+                                                i, 463 - i // 5)
                                         else:
-                                            self.imag13.rect = self.imag13.image.get_rect().move(i, 463 - i // (self.prov_click[0] * 5))
+                                            self.imag13.rect = self.imag13.image.get_rect().move(
+                                                i, 463 - i // (self.prov_click[0] * 5))
                                         all_sprites.draw(screen)
                                         pygame.display.flip()
                                         ris_fon() 
@@ -660,11 +670,14 @@ class Board:
                                     for i in range(20 + self.prov_click[0] * 100, 766, a):
                                         self.imag14.kill()
                                         self.imag14 = pygame.sprite.Sprite(all_sprites)
-                                        self.imag14.image = pygame.transform.scale(load_image(gg), (75, 100))
+                                        self.imag14.image = pygame.transform.scale(
+                                            load_image(gg), (75, 100))
                                         if self.prov_click[0] == 0:
-                                            self.imag14.rect = self.imag14.image.get_rect().move(i, 473 - i // 5)
+                                            self.imag14.rect = self.imag14.image.get_rect().move(
+                                                i, 473 - i // 5)
                                         else:
-                                            self.imag14.rect = self.imag14.image.get_rect().move(i, 473 - i // (self.prov_click[0] * 5))
+                                            self.imag14.rect = self.imag14.image.get_rect().move(
+                                                i, 473 - i // (self.prov_click[0] * 5))
                                         all_sprites.draw(screen)
                                         pygame.display.flip()
                                         ris_fon() 
@@ -689,7 +702,8 @@ class Board:
                                 qwe = 'lighting' + str(self.prov_click[0]) + '.png'                           
                                 ataka = pygame.sprite.Sprite(all_sprites)
                                 ataka.image = pygame.transform.scale(load_image(qwe), (150, 140))
-                                ataka.rect = ataka.image.get_rect().move(self.prov_click[0] * 55 + 475, 220)
+                                ataka.rect = ataka.image.get_rect().move(
+                                    self.prov_click[0] * 55 + 475, 220)
                                 all_sprites.draw(screen)
                                 clock.tick(2.5)
                                 pygame.display.flip()
@@ -714,7 +728,8 @@ class Board:
                                     at_e += 3
                                     
                                 draka = pygame.sprite.Sprite(all_sprites)
-                                draka.image = pygame.transform.scale(load_image('draka.png'), (100, 100))
+                                draka.image = pygame.transform.scale(
+                                    load_image('draka.png'), (100, 100))
                                 draka.rect = draka.image.get_rect().move(590, 310)
                                 all_sprites.draw(screen)
                                 pygame.display.flip()
@@ -794,11 +809,14 @@ class Board:
                                     for i in range(20 + self.prov_click[0] * 100, 366, a):
                                         self.imag00.kill()
                                         self.imag00 = pygame.sprite.Sprite(all_sprites)
-                                        self.imag00.image = pygame.transform.scale(load_image(gg), (75, 100))
+                                        self.imag00.image = pygame.transform.scale(
+                                            load_image(gg), (75, 100))
                                         if self.prov_click[0] == 0:
-                                            self.imag00.rect = self.imag00.image.get_rect().move(i, 183 + i // 5)
+                                            self.imag00.rect = self.imag00.image.get_rect().move(
+                                                i, 183 + i // 5)
                                         else:
-                                            self.imag00.rect = self.imag00.image.get_rect().move(i, 183 + i // (self.prov_click[0] * 5))
+                                            self.imag00.rect = self.imag00.image.get_rect().move(
+                                                i, 183 + i // (self.prov_click[0] * 5))
                                         all_sprites.draw(screen)
                                         pygame.display.flip()
                                         ris_fon()
@@ -819,11 +837,14 @@ class Board:
                                     for i in range(20 + self.prov_click[0] * 100, 466, a):
                                         self.imag01.kill()
                                         self.imag01 = pygame.sprite.Sprite(all_sprites)
-                                        self.imag01.image = pygame.transform.scale(load_image(gg), (75, 100))
+                                        self.imag01.image = pygame.transform.scale(
+                                            load_image(gg), (75, 100))
                                         if self.prov_click[0] == 0:
-                                            self.imag01.rect = self.imag01.image.get_rect().move(i, 173 + i // 5)
+                                            self.imag01.rect = self.imag01.image.get_rect().move(
+                                                i, 173 + i // 5)
                                         else:
-                                            self.imag01.rect = self.imag01.image.get_rect().move(i, 173 + i // (self.prov_click[0] * 5))
+                                            self.imag01.rect = self.imag01.image.get_rect().move(
+                                                i, 173 + i // (self.prov_click[0] * 5))
                                         all_sprites.draw(screen)
                                         pygame.display.flip()
                                         ris_fon() 
@@ -842,11 +863,14 @@ class Board:
                                     for i in range(20 + self.prov_click[0] * 100, 566, a):
                                         self.imag02.kill()
                                         self.imag02 = pygame.sprite.Sprite(all_sprites)
-                                        self.imag02.image = pygame.transform.scale(load_image(gg), (75, 100))
+                                        self.imag02.image = pygame.transform.scale(
+                                            load_image(gg), (75, 100))
                                         if self.prov_click[0] == 0:
-                                            self.imag02.rect = self.imag02.image.get_rect().move(i, 163 + i // 5)
+                                            self.imag02.rect = self.imag02.image.get_rect().move(
+                                                i, 163 + i // 5)
                                         else:
-                                            self.imag02.rect = self.imag02.image.get_rect().move(i, 163 + i // (self.prov_click[0] * 5))
+                                            self.imag02.rect = self.imag02.image.get_rect().move(
+                                                i, 163 + i // (self.prov_click[0] * 5))
                                         all_sprites.draw(screen)
                                         pygame.display.flip()
                                         ris_fon() 
@@ -865,11 +889,14 @@ class Board:
                                     for i in range(20 + self.prov_click[0] * 100, 667, a):
                                         self.imag03.kill()
                                         self.imag03 = pygame.sprite.Sprite(all_sprites)
-                                        self.imag03.image = pygame.transform.scale(load_image(gg), (75, 100))
+                                        self.imag03.image = pygame.transform.scale(
+                                            load_image(gg), (75, 100))
                                         if self.prov_click[0] == 0:
-                                            self.imag03.rect = self.imag03.image.get_rect().move(i, 153 + i // 5)
+                                            self.imag03.rect = self.imag03.image.get_rect().move(
+                                                i, 153 + i // 5)
                                         else:
-                                            self.imag03.rect = self.imag03.image.get_rect().move(i, 153 + i // (self.prov_click[0] * 5))
+                                            self.imag03.rect = self.imag03.image.get_rect().move(
+                                                i, 153 + i // (self.prov_click[0] * 5))
                                         all_sprites.draw(screen)
                                         pygame.display.flip()
                                         ris_fon() 
@@ -890,11 +917,14 @@ class Board:
                                     for i in range(20 + self.prov_click[0] * 100, 766, a):
                                         self.imag04.kill()
                                         self.imag04 = pygame.sprite.Sprite(all_sprites)
-                                        self.imag04.image = pygame.transform.scale(load_image(gg), (75, 100))
+                                        self.imag04.image = pygame.transform.scale(
+                                            load_image(gg), (75, 100))
                                         if self.prov_click[0] == 0:
-                                            self.imag04.rect = self.imag04.image.get_rect().move(i, 143 + i // 5)
+                                            self.imag04.rect = self.imag04.image.get_rect().move(
+                                                i, 143 + i // 5)
                                         else:
-                                            self.imag04.rect = self.imag04.image.get_rect().move(i, 143 + i // (self.prov_click[0] * 5))
+                                            self.imag04.rect = self.imag04.image.get_rect().move(
+                                                i, 143 + i // (self.prov_click[0] * 5))
                                         all_sprites.draw(screen)
                                         pygame.display.flip()
                                         ris_fon() 
@@ -906,7 +936,8 @@ class Board:
                             g = self.pole[self.prov_click[1]][self.prov_click[0]]
                             if g == 'cheaken':
                                 ataka = pygame.sprite.Sprite(all_sprites)
-                                ataka.image = pygame.transform.scale(load_image('egg.png'), (50, 40))
+                                ataka.image = pygame.transform.scale(
+                                    load_image('egg.png'), (50, 40))
                                 ataka.rect = ataka.image.get_rect().move(640, 550)
                                 all_sprites.draw(screen)
                                 clock.tick(2.5)
@@ -918,8 +949,10 @@ class Board:
                             elif g == 'robot':
                                 qwe = 'lighting' + str(self.prov_click[0]) + '.png'                           
                                 ataka = pygame.sprite.Sprite(all_sprites)
-                                ataka.image = pygame.transform.scale(load_image(qwe), (150, 140))
-                                ataka.rect = ataka.image.get_rect().move(self.prov_click[0] * 55 + 475, 420)
+                                ataka.image = pygame.transform.scale(
+                                    load_image(qwe), (150, 140))
+                                ataka.rect = ataka.image.get_rect().move(
+                                    self.prov_click[0] * 55 + 475, 420)
                                 all_sprites.draw(screen)
                                 clock.tick(2.5)
                                 pygame.display.flip()
@@ -981,15 +1014,18 @@ def menu_yrovneu():
         pygame.draw.rect(screen, (128, 128, 128), (660, 360, 80, 80), 5)
         pygame.draw.line(screen, (128, 128, 128), (660, 360), (740, 440), 5)
         pygame.draw.line(screen, (128, 128, 128), (740, 360), (660, 440), 5)
-
+        
+        
 def yrovni():
     pass
     # Это вызов рисования поля для боя. Он будет всегда одинаковый.
     # Но если будем всё успевать, то можно сделать и разные.
         
+        
 def pravila():
     pass
     # Это вызов рисования экрана с правилами.
+    
     
 def vzat_carty(who, go=True):
     if who == 'you':
@@ -1005,7 +1041,6 @@ def vzat_carty(who, go=True):
                 pygame.draw.rect(screen, (0, 0, 0), (1020, 380, 75, 210))
             for i in range(5):
                 if board.prov(3, i):
-                    qw = True
                     qwer = []
                     global cheaken
                     global robot
@@ -1038,7 +1073,6 @@ def vzat_carty(who, go=True):
                 pygame.draw.rect(screen, (0, 0, 0), (1020, 150, 75, 210))
             for i in range(5):
                 if board.prov(2, i):
-                    qw = True
                     qwer = []
                     global cheaken_e
                     global robot_e
@@ -1058,6 +1092,7 @@ def vzat_carty(who, go=True):
                         titan_e -= 1
                     board.izm(2, i, asd, 'card.png', go)
                     break
+                
                 
 def ris_fon():
     fon = pygame.sprite.Sprite(all_sprites)
@@ -1139,9 +1174,11 @@ def ris_fon():
         else:
             pygame.draw.polygon(screen, (0, 0, 255), (qw))    
     
+    
 def terminate():
     pygame.quit()
     sys.exit()
+    
     
 def load_image(name, color_key=None):
     fullname = os.path.join('game_sprites', name)
@@ -1156,7 +1193,7 @@ def load_image(name, color_key=None):
             color_key = image.get_at((0, 0))
         image.set_colorkey(color_key)
     return image
-    # у вас должна быть папка под названием game_sprites. Все спрайты берутся из неё.
+
 
 running = True
 exit = pygame.sprite.Sprite(all_sprites)
@@ -1526,7 +1563,7 @@ while running:
                                 rand_2 = random.randrange(0, 5)
                                 while rand_2 in sp_rand:
                                     rand_2 = random.randrange(0, 5)
-                            if rand != None and rand_2 != None:
+                            if rand is not None and rand_2 is not None:
                                 board.on_click((rand, 2))
                                 board.on_click((rand_2, 0))
                 if xp_e > 0 and xp_you > 0:
@@ -1547,7 +1584,7 @@ while running:
                         turn = True
                     enemy_turn += 1
                     prov_vzat_carty = True
-            if xp_you <= 0 :
+            if xp_you <= 0:
                 if end_game_prov:
                     boom = pygame.sprite.Sprite(all_sprites)
                     boom.image = pygame.transform.scale(load_image('boom.png'), (150, 150))
@@ -1586,10 +1623,10 @@ while running:
                 end_game = True
                 end_game_prov = False
             if end_game is False:
-                if event.type ==  pygame.MOUSEBUTTONDOWN:
+                if event.type == pygame.MOUSEBUTTONDOWN:
                     board.get_click(event.pos)
             else:
-                if event.type ==  pygame.MOUSEBUTTONDOWN:
+                if event.type == pygame.MOUSEBUTTONDOWN:
                     if event.pos[0] >= 63 and event.pos[0] <= 337:
                         if event.pos[1] >= 285 and event.pos[1] <= 316:
                             screen.fill((0, 0, 0))
